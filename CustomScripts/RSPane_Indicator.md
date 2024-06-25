@@ -1,0 +1,33 @@
+### Modified RS Pane
+
+```
+//@version=5
+indicator("RS Pane")
+length = 123//Look back to last 123 days
+base = 5//Currently i don't know what this value mean but 5 is deafult
+//Set up
+baseSymbol = request.security(syminfo.tickerid, timeframe.period, close)
+comparativeSymbol = request.security('NSE:NIFTYMIDSML400', timeframe.period, close)
+//Calculations
+res = baseSymbol / baseSymbol[length] / (comparativeSymbol / comparativeSymbol[length]) - 1
+resColor = res > 0 ? color.green : color.red 
+refLabelStyle = res[length] > 0 ? label.style_label_up : label.style_label_down
+y0 = res - res[base]
+angle0 = math.atan(y0 / base)  // radians
+sma_res = ta.sma(res, 21)//21 day moving average
+//Confirm symbol trend with a simple logic
+sma_symb = ta.sma(baseSymbol, 50)
+pos_div = ta.rising(sma_symb, 3) and baseSymbol >= sma_symb
+neg_div = ta.falling(sma_symb, 3) and baseSymbol < sma_symb
+div_started = pos_div or neg_div
+div_color = div_started ? pos_div ? color.new(color.green, 85): neg_div ? color.new(color.red, 85) : na : na
+ma_rising = ta.rising(sma_res, 3)
+ma_falling = ta.falling(sma_res, 3)
+ma_color =  ma_rising ? color.green : color.red 
+//plot zero line
+plot( 0, linewidth=2, color=color.maroon, title='Zero Line')
+//plot rs line
+plot(res, title='RS', linewidth=3, color=resColor)
+//plot 21 day moving average
+plot( sma_res  , color=color.gray, title='MA', linewidth = 1)
+```

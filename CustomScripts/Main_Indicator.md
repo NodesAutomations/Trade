@@ -1,5 +1,5 @@
 ```
-//@version=5
+//@version=5 
 indicator(title="Test", overlay=true,timeframe = "1D")
 
 // GetChartHighest() returns the highest value of the given argument
@@ -27,29 +27,21 @@ GetAllTimeHigh(dataSeries = high) =>
     math.max(highestHTF, highestChartTF)
 
 
-// Get and plot the all-time high
-plot(series=GetAllTimeHigh(), color=color.white, linewidth=1,title="All-Time High")
+// Get and plot the all-time high plot(series=GetAllTimeHigh(), color=color.white, linewidth=1,title="All-Time High")
 
-ma(source, length, type) =>
-    type == "SMA" ? ta.sma(source, length) :
-     type == "EMA" ? ta.ema(source, length) :
-     type == "SMMA (RMA)" ? ta.rma(source, length) :
-     type == "WMA" ? ta.wma(source, length) :
-     type == "VWMA" ? ta.vwma(source, length) :
-     na
+//Plot Moving Averages
+show_10d = input(true, "10 Day")
+plot(show_10d ? ta.ema(close, 10) : na, color = #ef2a57, title="10 Day")
 
-show_10d   = input(true, "10 Day")
-plot(show_10d ?  ma(close, 10, "EMA") : na, color = #ef2a57, title="10 Day")
- 
-show_21d   = input(true   , "21 Day" )
-plot(show_21d ?  ma(close, 21, "EMA") : na, color = #fc941a, title="21 Day")
+show_21d = input(true , "21 Day" )
+plot(show_21d ? ta.ema(close, 21 ) : na, color = #fc941a, title="21 Day")
 
-show_50d   = input(true   , "50 Day" )
-plot(show_50d ? ma(close, 50, "EMA") : na, color = #4eaf53, title="50 Day")
+show_50d = input(true , "50 Day" )
+plot(show_50d ? ta.ema(close, 50 ) : na, color = #4eaf53, title="50 Day")
 
-show_100d   = input(false   , "100 Day" )
-plot(show_100d ? ma(close, 100, "EMA") : na, color = #3768fd, title="100 Day")
+show_100d = input(false , "100 Day" )
+plot(show_100d ? ta.ema(close, 100 ) : na, color = #3768fd, title="100 Day")
 
-show_200d  = input(false   , "200 Day" )
-plot(show_200d ?  ma(close, 200, "EMA") : na, color = #fde947, title="200 Day")
+show_200d = input(false, "200 Day" )
+plot(show_200d ? ta.ema(close, 200 ) : na, color = #fde947, title="200 Day")
 ```

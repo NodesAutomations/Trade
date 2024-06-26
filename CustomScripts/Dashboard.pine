@@ -1,0 +1,19 @@
+ //@version=5
+indicator("Test",overlay= true)
+ema10  = ta.ema(close, 10)
+ema21 = ta.ema(close, 21)
+ema50 = ta.ema(close, 50)
+if barstate.islast
+    maTable = table.new(position.bottom_right, 3, 3, bgcolor = color.gray, border_width = 1, border_color = color.black)
+    // Header
+    table.cell(maTable, 0, 0, text = "EMA Table")
+    table.merge_cells(maTable, 0, 0, 2, 0)
+    // Cell Titles
+    table.cell(maTable, 0, 1, text = "EMA 10")
+    table.cell(maTable, 1, 1, text = "EMA 21")
+    table.cell(maTable, 2, 1, text = "EMA 50")
+
+    // Values
+    table.cell(maTable, 0, 2, bgcolor = color.white, text = str.tostring((close-ema10)/ema10,"0.00%"))
+    table.cell(maTable, 1, 2, bgcolor = color.white, text = str.tostring((close-ema21)/ema21,"0.00%"))
+    table.cell(maTable, 2, 2, bgcolor = color.white, text = str.tostring((close-ema50)/ema50,"0.00%"))

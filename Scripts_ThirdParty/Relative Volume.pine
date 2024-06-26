@@ -1,11 +1,7 @@
-### Relative Volume indicator
-- Display relative volume label in percent. So 400% RVol means, today's volume is 4x compared to avg volume for the length you selected.
-- https://www.tradingview.com/script/UyzdpoXx-Relative-Volume/
-
-```
  //@version=4
 // © ssksubam
 // Relative Volume in Percentage (%) label
+//https://www.tradingview.com/script/UyzdpoXx-Relative-Volume/
 
 study("Test", "RVol", true, scale = scale.none)
 
@@ -53,5 +49,3 @@ bar_today_vol = volume
 bar_avg_vol = sma((volume[1]), vol_len)
 bar_volpct = round((bar_today_vol / bar_avg_vol ) * 100) 
 plot(bar_volpct, color=showbarLine ? color.red : na, linewidth=1, title="Each Bar RVol")
-
-```

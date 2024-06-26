@@ -75,6 +75,8 @@ show_dashboard = input(true, "Dashboard" )
 var rowId=0
 var colId=0
 var textColor=color.white
+dcr_Percentage=(close-low)/(high-low)
+GetDcrBGColor(x)=>x>=0.5?color.green:color.red
 
 method Cells(table tbl,int rowId, int colId,string cellText,color backgroundcolor)=>
     table.cell(tbl,colId,rowId,cellText,text_color = textColor,bgcolor = backgroundcolor)
@@ -100,4 +102,8 @@ if barstate.islast and show_dashboard
 
     dashboard.Cells(rowId,colId,"RVol",color.black)
     dashboard.Cells(rowId+1,colId, str.tostring(rvol_Percentate,"0.00%"), GetRvolBGColor(rvol_Percentate))
+    colId:=colId+1
+
+    dashboard.Cells(rowId,colId,"DCR",color.black)
+    dashboard.Cells(rowId+1,colId, str.tostring(dcr_Percentage,"0.00%"), GetDcrBGColor(dcr_Percentage))
     colId:=colId+1

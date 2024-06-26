@@ -1,14 +1,19 @@
- //@version=5
+//@version=5
 indicator("Test",overlay= true)
 
-//Comman Variables
-var rowId=0
-var colId=0
-var textColor=color.white
+////EMA Calculation
+ema10 = ta.ema(close, 10)
+ema21 = ta.ema(close, 21)
+ema50 = ta.ema(close, 50)
 
-//Function to Get color value
+ema10_Percentate=(close-ema10)/ema10
+ema21_Percentate=(close-ema21)/ema21
+ema50_Percentate=(close-ema50)/ema50
+
 GetEmaBGColor(x)=>x>=0?color.green:x>=-0.02?color.orange:color.red
-GetAthBGColor(x)=>x>=-0.15?color.green:x>=-0.2?color.orange:color.red
+
+////Ath Calculatoin
+
 // GetChartHighest() returns the highest value of the given argument
 // for the entire chart.
 GetChartHighest(dataSeries = high) =>
@@ -26,41 +31,52 @@ GetAllTimeHigh(dataSeries = high) =>
     math.max(highestHTF, highestChartTF)
 
 
-method Cells(table tbl,int rowId, int colId,string cellText,color backgroundcolor)=>
-    table.cell(tbl,colId,rowId,cellText,text_color = textColor,bgcolor = backgroundcolor)
-
-//Ath Calculatoin
 float ath=GetAllTimeHigh()[0]
 ath_Percentage=(close-ath)/ath
+GetAthBGColor(x)=>x>=-0.15?color.green:x>=-0.2?color.orange:color.red
 
-//EMA Calculation
-ema10 = ta.ema(close, 10)
-ema21 = ta.ema(close, 21)
-ema50 = ta.ema(close, 50)
+////Relative Volume Calculation
 
-ema10_Percentate=(close-ema10)/ema10
-ema21_Percentate=(close-ema21)/ema21
-ema50_Percentate=(close-ema50)/ema50
+Round( _val, _decimals) => 
+    // Rounds _val to _decimals places.
+    _p = math.pow(10,_decimals)
+    math.round(math.abs(_val)*_p)/_p*math.sign(_val)
+
+today_vol = request.security(syminfo.tickerid, "D", volume)
+yday_vol = request.security(syminfo.tickerid, "D", volume[1])
+avg_vol = request.security(syminfo.tickerid, "D", ta.sma(yday_vol, 20))
+rvol_Percentate = (today_vol / avg_vol ) 
+
+GetRvolBGColor(x)=>x>=0.5?color.green:x>=0.2?color.orange:color.red
+
+//// Table Generation
+
+var rowId=0
+var colId=0
+var textColor=color.white
+
+method Cells(table tbl,int rowId, int colId,string cellText,color backgroundcolor)=>
+    table.cell(tbl,colId,rowId,cellText,text_color = textColor,bgcolor = backgroundcolor)
 
 if barstate.islast
     var dashboard= table.new("top_center",10,2)
 
-    dashboard.Cells(0,colId,"EMA 10",color.black)
-    dashboard.Cells(1,colId, str.tostring(ema10_Percentate,"0.00%"), GetEmaBGColor(ema10_Percentate))
+    dashboard.Cells(rowId,colId,"EMA 10",color.black)
+    dashboard.Cells(rowId+1,colId, str.tostring(ema10_Percentate,"0.00%"), GetEmaBGColor(ema10_Percentate))
     colId:=colId+1
 
-    dashboard.Cells(0,colId,"EMA 21",color.black)
-    dashboard.Cells(1,colId, str.tostring(ema21_Percentate,"0.00%"), GetEmaBGColor(ema21_Percentate))
+    dashboard.Cells(rowId,colId,"EMA 21",color.black)
+    dashboard.Cells(rowId+1,colId, str.tostring(ema21_Percentate,"0.00%"), GetEmaBGColor(ema21_Percentate))
     colId:=colId+1
 
-    dashboard.Cells(0,colId,"EMA 50",color.black)
-    dashboard.Cells(1,colId, str.tostring(ema50_Percentate,"0.00%"), GetEmaBGColor(ema50_Percentate))
+    dashboard.Cells(rowId,colId,"EMA 50",color.black)
+    dashboard.Cells(rowId+1,colId, str.tostring(ema50_Percentate,"0.00%"), GetEmaBGColor(ema50_Percentate))
     colId:=colId+1
  
-    dashboard.Cells(0,colId,"ATH",color.black)
-    dashboard.Cells(1,colId, str.tostring(ath_Percentage,"0.00%"), GetAthBGColor(ath_Percentage))
+    dashboard.Cells(rowId,colId,"ATH",color.black)
+    dashboard.Cells(rowId+1,colId, str.tostring(ath_Percentage,"0.00%"), GetAthBGColor(ath_Percentage))
     colId:=colId+1
 
-    dashboard.Cells(0,colId,"RVol",color.black)
-    dashboard.Cells(1,colId, str.tostring(0,"0.00%"), GetEmaBGColor(0))
+    dashboard.Cells(rowId,colId,"RVol",color.black)
+    dashboard.Cells(rowId+1,colId, str.tostring(rvol_Percentate,"0.00%"), GetRvolBGColor(rvol_Percentate))
     colId:=colId+1

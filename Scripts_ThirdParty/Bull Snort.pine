@@ -1,0 +1,20 @@
+//https://www.youtube.com/watch?v=_bCrklszwj0
+//@version=5
+indicator("BSnort", "APBSNORT", overlay=true)
+
+vol = ta.sma(volume, 50)
+bool bsnort = false
+if volume >= (vol*3) and close > close[1] and close > hlc3  
+    bsnort := true
+
+lbcolor1 = input.color(color.new(color.green,0), "Label Color", inline = '01')
+
+string lbstyle1 = input.string('Triangle Up', 'Style', options=['Xcross', 'Cross', 'Circle', 'Diamond', 'Square', 'Flag', 'Triangle Up', 'Triangle Down', 'Arrow Up', 'Arrow Down', 'Label Up', 'Label Down', 'None'], inline ='02')
+string labelstyle1 = lbstyle1 == 'Xcross' ? label.style_xcross : lbstyle1 == 'Cross' ? label.style_cross : lbstyle1 == 'Circle' ? label.style_circle : lbstyle1 == 'Diamond' ? label.style_diamond : lbstyle1 == 'Square' ? label.style_square : lbstyle1 == 'Flag' ? label.style_flag : lbstyle1 == 'Triangle Up' ? label.style_triangleup: lbstyle1 == 'Triangle Down' ? label.style_triangledown: lbstyle1 == 'Arrow Up' ? label.style_arrowup: lbstyle1 == 'Arrow Down' ? label.style_arrowdown: lbstyle1 == 'Label Up' ? label.style_label_up: lbstyle1 == 'Label Down' ? label.style_label_down : label.style_none
+
+string lbsize1 = input.string('Tiny', 'Size', options=['Auto', 'Tiny', 'Small', 'Normal', 'Large', 'Huge'], inline='03')
+string labelsize = lbsize1 == 'Auto' ? size.auto : lbsize1 == 'Tiny' ? size.tiny : lbsize1 == 'Small' ? size.small : lbsize1 == 'Normal' ? size.normal : lbsize1 == 'Large' ? size.large : size.huge
+
+label labelbsnort = na
+if bsnort == true
+    labelbsnort := label.new(bar_index, low, yloc= yloc.belowbar, color= lbcolor1, style= labelstyle1 , size = labelsize)

@@ -37,6 +37,12 @@ GetAllTimeHigh(dataSeries = high) =>
 // Get and plot the all-time high
 plot(series=GetAllTimeHigh(), color=color.white, linewidth=1,title="All-Time High")
 
+//// Bull Snort
+show_BullSnort = input(false, "BullSnort" )
+if show_BullSnort
+    vol = ta.sma(volume, 50)
+    if  volume >= (vol*3) and close > close[1] and close > hlc3  == true
+        label.new(bar_index, low, yloc= yloc.belowbar, color= color.yellow, style= label.style_triangleup , size = size.tiny)
 
 ////EMA Calculation
 ema10 = ta.ema(close, 10)

@@ -25,3 +25,16 @@ fill(openingPlot,closingPlot,color = color.white)
     - Plot graph using closing price
 - `fill(openingPlot,closingPlot,color = color.white)`
     - Fill Part between two plots
+
+
+### Study vs Strategy
+- both can be used to plot  inforamtion on chart
+- both can contain calcution
+- Study
+    - Put alerts using Study
+    - Can't do back testing
+- Strategy
+    - Used for back testing
+    - Can't put alerts
+>Note: Study is not indicator type in version 5
+ 

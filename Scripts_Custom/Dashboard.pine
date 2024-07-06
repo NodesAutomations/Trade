@@ -1,14 +1,19 @@
 //@version=5
 indicator("Test",overlay= true)
 
-////EMA Calculation
-ema10 = ta.ema(close, 10)
-ema21 = ta.ema(close, 21)
-ema50 = ta.ema(close, 50)
+//// Common Inputs
+dailyClose=request.security(syminfo.tickerid,"1D",close)
+dailyLow=request.security(syminfo.tickerid,"1D",low)
+dailyHigh=request.security(syminfo.tickerid,"1D",high)
 
-ema10_Percentate=(close-ema10)/ema10
-ema21_Percentate=(close-ema21)/ema21
-ema50_Percentate=(close-ema50)/ema50
+////EMA Calculation
+ema10 = request.security(syminfo.tickerid, "1D",ta.ema(close, 10))
+ema21 = request.security(syminfo.tickerid, "1D",ta.ema(close, 21))
+ema50 = request.security(syminfo.tickerid, "1D",ta.ema(close, 50))
+
+ema10_Percentate=(dailyClose-ema10)/ema10
+ema21_Percentate=(dailyClose-ema21)/ema21
+ema50_Percentate=(dailyClose-ema50)/ema50
 
 GetEmaBGColor(x)=>x>=0?color.green:x>=-0.02?color.orange:color.red
 
@@ -32,7 +37,7 @@ GetAllTimeHigh(dataSeries = high) =>
 
 
 float ath=GetAllTimeHigh()[0]
-ath_Percentage=(close-ath)/ath
+ath_Percentage=(dailyClose-ath)/ath
 GetAthBGColor(x)=>x>=-0.15?color.green:x>=-0.2?color.orange:color.red
 
 ////Relative Volume Calculation
@@ -55,16 +60,18 @@ show_dashboard = input(true, "Dashboard" )
 var rowId=0
 var colId=0
 var textColor=color.white
-dcr_Percentage=(close-low)/(high-low)
+
+dcr_Percentage=(dailyClose-dailyLow)/(dailyHigh-dailyLow)
 GetDcrBGColor(x)=>x>=0.5?color.green:x>=0.4?color.orange:color.red
-adr_Percentage = 100 * (ta.sma(high/low, 20) - 1)
+
+adr_Percentage = 100 * (request.security(syminfo.tickerid, "1D",ta.sma(high/low, 20)) - 1)
 GetAdrBGColor(x)=>x>=5?color.green:x>=4?color.orange:color.red
 
 method Cells(table tbl,int rowId, int colId,string cellText,color backgroundcolor)=>
     table.cell(tbl,colId,rowId,cellText,text_color = textColor,bgcolor = backgroundcolor)
 
 if barstate.islast and show_dashboard
-    var dashboard= table.new("top_center",10,2)
+    var dashboard= table.new("top_right",10,2)
 
     dashboard.Cells(rowId,colId,"EMA 10",color.black)
     dashboard.Cells(rowId+1,colId, str.tostring(ema10_Percentate,"0.00%"), GetEmaBGColor(ema10_Percentate))

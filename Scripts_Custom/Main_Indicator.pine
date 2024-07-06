@@ -38,11 +38,16 @@ GetAllTimeHigh(dataSeries = high) =>
 plot(series=GetAllTimeHigh(), color=color.white, linewidth=1,title="All-Time High")
 
 //// Bull Snort
-show_BullSnort = input(false, "BullSnort" )
+show_BullSnort = input(true, "BullSnort" )
 if show_BullSnort
     vol = ta.sma(volume, 50)
     if  volume >= (vol*3) and close > close[1] and close > hlc3  == true
-        label.new(bar_index, low, yloc= yloc.belowbar, color= color.yellow, style= label.style_triangleup , size = size.tiny)
+        label.new(bar_index, low, yloc= yloc.belowbar, color= color.white, style= label.style_circle , size = size.auto)
+
+//// Inside bar
+show_InsideBar=input(true,"InsideBar")
+data=high[1]>=high and low[1]<=low and show_InsideBar
+plotshape(data, style=shape.diamond,location = location.belowbar, color= color.yellow, size = size.tiny, show_last=50)
 
 ////EMA Calculation
 ema10 = ta.ema(close, 10)
@@ -108,14 +113,14 @@ if barstate.islast and show_dashboard
     dashboard.Cells(rowId+1,colId, str.tostring(ath_Percentage,"0.00%"), GetAthBGColor(ath_Percentage))
     colId:=colId+1
 
-    dashboard.Cells(rowId,colId,"ADR",color.black)  
-    dashboard.Cells(rowId+1,colId, str.tostring(adr_Percentage,"0.00")+"%", GetAdrBGColor(adr_Percentage))
-    colId:=colId+1
-    
     dashboard.Cells(rowId,colId,"RVol",color.black)
     dashboard.Cells(rowId+1,colId, str.tostring(rvol_Percentate,"0.00%"), GetRvolBGColor(rvol_Percentate))
     colId:=colId+1
 
     dashboard.Cells(rowId,colId,"DCR",color.black)
     dashboard.Cells(rowId+1,colId, str.tostring(dcr_Percentage,"0.00%"), GetDcrBGColor(dcr_Percentage))
+    colId:=colId+1
+
+    dashboard.Cells(rowId,colId,"ADR",color.black)  
+    dashboard.Cells(rowId+1,colId, str.tostring(adr_Percentage,"0.00")+"%", GetAdrBGColor(adr_Percentage))
     colId:=colId+1

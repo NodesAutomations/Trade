@@ -4,8 +4,21 @@ int rowId=0
 int colId=0
 var textColor=color.white
 
+//Chart info
+dayLow=request.security(syminfo.tickerid,"1D",low)
+dayOpen=request.security(syminfo.tickerid,"1D",open)
+preDayClose= request.security(syminfo.tickerid,"1D",close[1])
+
 method Cells(table tbl,int rowId, int colId,string cellText,color backgroundcolor)=>
     table.cell(tbl,colId,rowId,cellText,text_color = textColor,bgcolor = backgroundcolor)
+
+//Gap Up Calculation
+
+open_Percentage=(dayOpen-preDayClose)/dayOpen
+GetOpenBGColor(x)=>x>=0.01?color.green:x>=-0.005?color.orange:color.red
+
+gap_Percentage= (dayLow-preDayClose)/dayLow
+GetGapBGColor(x)=>x>=0?color.green:x>=-0.01?color.orange:color.red
 
 var dashboard= table.new("top_right",2,10)
 dashboard.Cells(rowId,colId,"Helper",color.blue)
@@ -13,8 +26,12 @@ dashboard.Cells(rowId,colId,"Helper",color.blue)
 table.merge_cells(dashboard,colId,rowId,colId+1,rowId)
 rowId:=rowId+2
 
-dashboard.Cells(rowId,colId,"Gap Up",color.black)
-dashboard.Cells(rowId,colId+1,"0",color.green)
+dashboard.Cells(rowId,colId,"Open",color.black)
+dashboard.Cells(rowId,colId+1, str.tostring(open_Percentage,"0.00%"),GetOpenBGColor(open_Percentage))
+rowId:=rowId+1
+
+dashboard.Cells(rowId,colId,"Gap",color.black)
+dashboard.Cells(rowId,colId+1, str.tostring(gap_Percentage,"0.00%"),GetGapBGColor(gap_Percentage))
 rowId:=rowId+1
 
 dashboard.Cells(rowId,colId,"Trigger",color.black)
@@ -42,6 +59,6 @@ dashboard.Cells(rowId,colId,"Gain",color.black)
 dashboard.Cells(rowId,colId+1,"0",color.green)
 rowId:=rowId+1
 
-dashboard.Cells(rowId,colId,"Risk",color.black)
-dashboard.Cells(rowId,colId+1,"0",color.green)
-rowId:=rowId+1
+// dashboard.Cells(rowId,colId,"Risk",color.black)
+// dashboard.Cells(rowId,colId+1,"0",color.green)
+// rowId:=rowId+1

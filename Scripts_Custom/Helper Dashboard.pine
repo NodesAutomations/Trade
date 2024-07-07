@@ -1,0 +1,47 @@
+//@version=5
+indicator("Test",overlay= true)
+int rowId=0
+int colId=0
+var textColor=color.white
+
+method Cells(table tbl,int rowId, int colId,string cellText,color backgroundcolor)=>
+    table.cell(tbl,colId,rowId,cellText,text_color = textColor,bgcolor = backgroundcolor)
+
+var dashboard= table.new("top_right",2,10)
+dashboard.Cells(rowId,colId,"Helper",color.blue)
+//Merge First Row
+table.merge_cells(dashboard,colId,rowId,colId+1,rowId)
+rowId:=rowId+2
+
+dashboard.Cells(rowId,colId,"Gap Up",color.black)
+dashboard.Cells(rowId,colId+1,"0",color.green)
+rowId:=rowId+1
+
+dashboard.Cells(rowId,colId,"Trigger",color.black)
+dashboard.Cells(rowId,colId+1,"0",color.green)
+rowId:=rowId+1
+
+dashboard.Cells(rowId,colId,"0.5 QTY",color.black)
+dashboard.Cells(rowId,colId+1,"0",color.green)
+rowId:=rowId+1
+
+dashboard.Cells(rowId,colId,"1 QTY",color.black)
+dashboard.Cells(rowId,colId+1,"0",color.green)
+rowId:=rowId+1
+
+dashboard.Cells(rowId,colId,"SL",color.black)
+dashboard.Cells(rowId,colId+1,"0",color.green)
+rowId:=rowId+1
+
+//For stocks i am holding
+dashboard.Cells(rowId,colId,"Holding",color.blue)
+table.merge_cells(dashboard,colId,rowId,colId+1,rowId)
+rowId:=rowId+1
+
+dashboard.Cells(rowId,colId,"Gain",color.black)
+dashboard.Cells(rowId,colId+1,"0",color.green)
+rowId:=rowId+1
+
+dashboard.Cells(rowId,colId,"Risk",color.black)
+dashboard.Cells(rowId,colId+1,"0",color.green)
+rowId:=rowId+1

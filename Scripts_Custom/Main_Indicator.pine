@@ -96,7 +96,7 @@ dcr_Percentage=(dailyClose-dailyLow)/(dailyHigh-dailyLow)
 GetDcrBGColor(x)=>x>=0.5?color.green:x>=0.4?color.orange:color.red
 
 adr_Percentage = 100 * (request.security(syminfo.tickerid, "1D",ta.sma(high/low, 20)) - 1)
-GetAdrBGColor(x)=>x>=5?color.green:x>=4?color.orange:color.red
+GetAdrBGColor(x)=>x>=4?color.green:x>=3?color.orange:color.red
 
 method Cells(table tbl,int rowId, int colId,string cellText,color backgroundcolor)=>
     table.cell(tbl,colId,rowId,cellText,text_color = textColor,bgcolor = backgroundcolor)

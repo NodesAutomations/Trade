@@ -70,6 +70,9 @@ float stoploss = switch slEnum
     sl.daylow=>GetSL(dayLow)
     sl.preDayLow=>GetSL(preDayLow)
 
+stoploss_Percentage= (close-stoploss)/stoploss
+GetStoplossBGColor(x)=>x<=0.02?color.green:x<=0.04?color.orange:color.red
+
 var dashboard= table.new("top_right",2,10)
 dashboard.Cells(rowId,colId,"Helper",color.blue)
 //Merge First Row
@@ -84,11 +87,15 @@ dashboard.Cells(rowId,colId,"Gap",color.black)
 dashboard.Cells(rowId,colId+1, str.tostring(gap_Percentage,"0.00%"),GetGapBGColor(gap_Percentage))
 rowId:=rowId+1
 
+dashboard.Cells(rowId,colId,"SL%",color.black)
+dashboard.Cells(rowId,colId+1,str.tostring(stoploss_Percentage,"0.00%"),GetStoplossBGColor(stoploss_Percentage))
+rowId:=rowId+1
+
+dashboard.Cells(rowId,colId,"SL",color.black)
+dashboard.Cells(rowId,colId+1,str.tostring(stoploss),GetStoplossBGColor(stoploss_Percentage))
+rowId:=rowId+1
 
 dashboard.Cells(rowId,colId,"QTY",color.black)
 dashboard.Cells(rowId,colId+1, str.tostring(qty),color.green)
 rowId:=rowId+1
 
-dashboard.Cells(rowId,colId,"SL",color.black)
-dashboard.Cells(rowId,colId+1,str.tostring(stoploss),color.green)
-rowId:=rowId+1

@@ -75,15 +75,15 @@ preDayLow= request.security(syminfo.tickerid,"1D",low[1])
 //Trigger Calculation
 float trigger=triggerMap.contains(syminfo.ticker)?triggerMap.get(syminfo.ticker):0
 trigger_Percentage=trigger>0? (close-trigger)/trigger:0
-GetTriggerBGColor(x)=>x>=0.02?color.red:x>=-0.02?color.green:color(na)
+GetTriggerBGColor(x)=>x>=0.02?color.red:x>=-0.02?(x==0?color(na):color.green):color(na)
 
 //Open Calculation
 open_Percentage=(dayOpen-preDayClose)/dayOpen
-GetOpenBGColor(x)=>x>=0.01?color.green:x>=-0.005?color.orange:color.red
+GetOpenBGColor(x)=>x>=0.01?color.green:x>=-0.01?color(na):color.red
 
 //Gap Calculation
 gap_Percentage= (dayLow-preDayClose)/dayLow
-GetGapBGColor(x)=>x>=0?color.green:x>=-0.01?color.orange:color.red
+GetGapBGColor(x)=>x>=0?color.green:x>=-0.01?color(na):color.red
 
 //Qty Calculation
 int positionSize=input.int(300, "Position", minval=200, maxval=1000, step=1)*1000
@@ -123,7 +123,7 @@ today_vol = request.security(syminfo.tickerid, "D", volume)
 yday_vol = request.security(syminfo.tickerid, "D", volume[1])
 avg_vol = request.security(syminfo.tickerid, "D", ta.sma(yday_vol, 20))
 rvol_Percentate = (today_vol / avg_vol ) 
-GetRvolBGColor(x)=>x>=0.5?color.green:x>=0.2?color.orange:color.red
+GetRvolBGColor(x)=>x>=0.8?color.green:x>=0.5?color(na):x>=0.3?color.orange:color.red
 
 //DCR
 dcr_Percentage=(dayClose-dayLow)/(dayHigh-dayLow)

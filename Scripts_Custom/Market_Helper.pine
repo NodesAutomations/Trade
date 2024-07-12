@@ -101,7 +101,7 @@ float stoploss = switch slEnum
     sl.preDayLow=>GetSL(preDayLow)
 
 stoploss_Percentage= (close-stoploss)/stoploss
-GetStoplossBGColor(x)=>x<=0.02?color.green:x<=0.04?color.orange:color.red
+GetStoplossBGColor(x)=>x>0.04?color.red: x>=0.025?color.orange:x>=0.01?color(na):color.green
 
 //Holding Stock Calculation
 float buyPrice=holdingMap.contains(syminfo.ticker)?holdingMap.get(syminfo.ticker).BuyPrice:0
@@ -172,14 +172,14 @@ dashboard.Cells(rowId+1,colId,str.tostring(stoploss_Percentage,"0.00%"),GetStopl
 colId:=colId+1
 
 dashboard.Cells(rowId,colId,"SL",color.black)
-dashboard.Cells(rowId+1,colId,str.tostring(stoploss),GetStoplossBGColor(stoploss_Percentage))
+dashboard.Cells(rowId+1,colId,str.tostring(stoploss),color(na))
 colId:=colId+1
 
 dashboard.Cells(rowId,colId,"SL AT",color.black)
-dashboard.Cells(rowId+1,colId,str.tostring(slEnum),color.green)
+dashboard.Cells(rowId+1,colId,str.tostring(slEnum),color(na))
 colId:=colId+1
 
 dashboard.Cells(rowId,colId,"QTY",color.black)
-dashboard.Cells(rowId+1,colId,str.tostring(qty),color.green)
+dashboard.Cells(rowId+1,colId,str.tostring(qty),color(na))
 colId:=colId+1
  

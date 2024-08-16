@@ -4,11 +4,11 @@ indicator("Helper",overlay= true)
 //// External data
 type Trade
     float BuyPrice
-    float Stoploss
+    string OrderDate
 
 var holdingMap= map.new<string,Trade>()
-holdingMap.put("LIKHITHA",Trade.new(482.81,458.6695))
-holdingMap.put("JYOTHYLAB",Trade.new(519.3,518))
+holdingMap.put("LIKHITHA",Trade.new(482.81,"20240712"))
+holdingMap.put("JYOTHYLAB",Trade.new(519.3,"20240725"))
 
 // Create variables
 var dayHighPrice = 0.0
@@ -41,7 +41,6 @@ else
     boxColor=close>prevDayClose?color.green:color.red
     box.set_bgcolor(dailyBox, color.new(boxColor, 90))
     box.set_border_color(dailyBox, boxColor)
-
 
 //Common Inputs
 int rowId=0
@@ -87,6 +86,19 @@ float buyPrice=holdingMap.contains(syminfo.ticker)?holdingMap.get(syminfo.ticker
 float gain_Percentage=buyPrice>0? (close-buyPrice) /buyPrice:0
 GetGainBGColor(x)=>x>=0.15?color.green:x>=0?color(na):x>=-0.03?color.orange:color.red
 
+currentDate = timestamp(year(timenow), month(timenow), dayofmonth(timenow), 0, 0)
+
+dateString = holdingMap.contains(syminfo.ticker)?holdingMap.get(syminfo.ticker).OrderDate:""
+
+dyear =int( str.tonumber(str.substring(dateString, 0, 4)))
+dmonth = int( str.tonumber(str.substring(dateString, 4, 6)))
+dday = int( str.tonumber(str.substring(dateString, 6, 8)))
+
+startDate= timestamp(dyear, dmonth,dday, 0, 0)
+
+int NOD= (currentDate-startDate)/(24 * 60 * 60 * 1000)
+GetNodBGColor(x)=>x>6?color.red:color(na)
+
 ////Relative Volume Calculation
 
 Round( _val, _decimals) => 
@@ -115,7 +127,7 @@ dashboard.Cells(rowId+1,colId,buyPrice>0? str.tostring(gain_Percentage,"0.00%"):
 colId:=colId+1
 
 dashboard.Cells(rowId,colId,"NOD",color.black)
-dashboard.Cells(rowId+1,colId,"1",color(na))
+dashboard.Cells(rowId+1,colId,str.tostring(NOD),GetNodBGColor(NOD))
 colId:=colId+1
 
 dashboard.Cells(rowId,colId,"",color(na))

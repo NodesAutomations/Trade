@@ -7,25 +7,8 @@ type Trade
     float Stoploss
 
 var holdingMap= map.new<string,Trade>()
-holdingMap.put("IREDA",Trade.new(181.6,231))
-holdingMap.put("HBLPOWER",Trade.new(518.6,580))
-holdingMap.put("OLECTRA",Trade.new(1903.35,1816))
-
-var triggerMap= map.new<string,float>()
-triggerMap.put("GODIGIT",350)
-triggerMap.put("IXIGO",176)
-triggerMap.put("GMDCLTD",404)
-triggerMap.put("MOIL",545)
-triggerMap.put("CHAMBLFERT",524)
-triggerMap.put("JBMA",2200)
-triggerMap.put("TRIVENI",398)
-triggerMap.put("KIOCL",483)
-triggerMap.put("BALMLAWRIE",295)
-triggerMap.put("SUNDARMHLD",276)
-triggerMap.put("QUICKHEAL",543)
-triggerMap.put("TRACXN",99)
-triggerMap.put("ACE",1550)
-triggerMap.put("MAPMYINDIA",2458)
+holdingMap.put("LIKHITHA",Trade.new(482.81,458.6695))
+holdingMap.put("JYOTHYLAB",Trade.new(519.3,518))
 
 // Create variables
 var dayHighPrice = 0.0
@@ -72,11 +55,6 @@ dayClose=request.security(syminfo.tickerid,"1D",close)
 preDayClose= request.security(syminfo.tickerid,"1D",close[1])
 preDayLow= request.security(syminfo.tickerid,"1D",low[1])
 
-//Trigger Calculation
-float trigger=triggerMap.contains(syminfo.ticker)?triggerMap.get(syminfo.ticker):0
-trigger_Percentage=trigger>0? (close-trigger)/trigger:0
-GetTriggerBGColor(x)=>x>=0.02?color.red:x>=-0.02?(x==0?color(na):color.green):color(na)
-
 //Open Calculation
 open_Percentage=(dayOpen-preDayClose)/dayOpen
 GetOpenBGColor(x)=>x>=0.01?color.green:x>=-0.01?color(na):color.red
@@ -109,9 +87,6 @@ float buyPrice=holdingMap.contains(syminfo.ticker)?holdingMap.get(syminfo.ticker
 float gain_Percentage=buyPrice>0? (close-buyPrice) /buyPrice:0
 GetGainBGColor(x)=>x>=0.15?color.green:x>=0?color(na):x>=-0.03?color.orange:color.red
 
-float sellPrice=holdingMap.contains(syminfo.ticker)?holdingMap.get(syminfo.ticker).Stoploss:0
-float sellPrice_Percentage=sellPrice>0? sellPrice/buyPrice-1:0
-
 ////Relative Volume Calculation
 
 Round( _val, _decimals) => 
@@ -139,12 +114,8 @@ dashboard.Cells(rowId,colId,"Gain",color.black)
 dashboard.Cells(rowId+1,colId,buyPrice>0? str.tostring(gain_Percentage,"0.00%"):"-",GetGainBGColor(gain_Percentage))
 colId:=colId+1
 
-dashboard.Cells(rowId,colId,"Risk",color.black)
-dashboard.Cells(rowId+1,colId,sellPrice>0?str.tostring(sellPrice_Percentage,"0.00%"):"-",GetGainBGColor(sellPrice_Percentage))
-colId:=colId+1
-
-dashboard.Cells(rowId,colId,"GTT",color.black)
-dashboard.Cells(rowId+1,colId,trigger>0?str.tostring(trigger_Percentage,"0.00%"):"-",GetTriggerBGColor(trigger_Percentage))
+dashboard.Cells(rowId,colId,"NOD",color.black)
+dashboard.Cells(rowId+1,colId,"1",color(na))
 colId:=colId+1
 
 dashboard.Cells(rowId,colId,"",color(na))

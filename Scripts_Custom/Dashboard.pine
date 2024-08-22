@@ -7,6 +7,9 @@ method VerticleCell(table tbl, int colId,string cellTitle,string cellText,color 
     table.cell(tbl,colId,0,cellTitle,text_color = color.white,bgcolor = color.black)
     table.cell(tbl,colId,1,cellText,text_color = color.white,bgcolor = backgroundcolor)
 
+//General variables
+[dailyOpen,dailyHigh,dailyLow,dailyClose] = request.security(syminfo.tickerid, "1D", [open,high,low,close])
+
 //Market Cap Value
 series float TSOFQ = request.financial(syminfo.tickerid, "TOTAL_SHARES_OUTSTANDING", "FQ",ignore_invalid_symbol=true)
 series float TSOFY =request.financial(syminfo.tickerid, "TOTAL_SHARES_OUTSTANDING", "FY",ignore_invalid_symbol=true)
@@ -15,6 +18,15 @@ MarketCap = ph.IsStock()? (na(TSOFQ)?TSOFY:TSOFQ) * close:0
 //Free Float Value
 series float FSOFY =nz(request.financial(syminfo.tickerid, 'FLOAT_SHARES_OUTSTANDING', 'FY',ignore_invalid_symbol=true))
 FreeFloat=ph.IsStock()? FSOFY*ta.vwap:0
+
+////EMA Calculation
+float ema10 = request.security(syminfo.tickerid, "1D",ta.ema(close, 10))
+float ema21 = request.security(syminfo.tickerid, "1D",ta.ema(close, 21))
+float ema50 = request.security(syminfo.tickerid, "1D",ta.ema(close, 50))
+
+float ema10_Percentate=ph.Percentage(dailyClose,ema10)
+float ema21_Percentate=ph.Percentage(dailyClose,ema21)
+float ema50_Percentate=ph.Percentage(dailyClose,ema50)
 
 //// Table Generation
 show_dashboard = input(true, "Dashboard" )
@@ -27,6 +39,15 @@ if barstate.islast and show_dashboard
     colId:=colId+1
 
     VerticleCell(dashboard,colId, "FF",ph.ToCrore(FreeFloat), ph.GetBGColor(ph.RatioCrore(FreeFloat),300,500,1000,10000,100000))
+    colId:=colId+1
+
+    VerticleCell(dashboard,colId,"EMA 10",ph.ToPercentage(ema10_Percentate),ph.GetBGColor(ema10_Percentate,-0.01,0,0.03,0.1,0.15))
+    colId:=colId+1
+
+    VerticleCell(dashboard,colId,"EMA 21",ph.ToPercentage(ema21_Percentate),ph.GetBGColor(ema10_Percentate,-0.01,0,0.03,0.1,0.15))
+    colId:=colId+1
+
+    VerticleCell(dashboard,colId,"EMA 50",ph.ToPercentage(ema50_Percentate),ph.GetBGColor(ema10_Percentate,-0.01,0,0.03,0.1,0.15))
     colId:=colId+1
 
     VerticleCell(dashboard,colId,"Test","Test",color(na))

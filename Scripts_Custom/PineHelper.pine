@@ -9,8 +9,11 @@ library("PineHelper", overlay=true)
 //// Commanly Used fuctions for active Script™
 
 //@function To check if current script is index or not
-export IsIndex()=>
-	str.contains(syminfo.description, "Index")
+export method IsIndex(string symbolType=syminfo.type)=>
+    symbolType=="index"
+
+export method IsStock(string symbolType=syminfo.type)=>
+    symbolType=="stock"
 
 ////Functions for value formatting
 

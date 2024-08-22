@@ -1,38 +1,34 @@
 //@version=5
 indicator("Dashboard",overlay= true)
-import vkpunique/PineHelper/4 as helper
+import vkpunique/PineHelper/4 as ph
 
 //Replace this functions On next PineHelper Update 
+method VerticleCell(table tbl, int colId,string cellTitle,string cellText,color backgroundcolor)=>
+    table.cell(tbl,colId,0,cellTitle,text_color = color.white,bgcolor = color.black)
+    table.cell(tbl,colId,1,cellText,text_color = color.white,bgcolor = backgroundcolor)
 
 //Market Cap Value
 series float TSOFQ = request.financial(syminfo.tickerid, "TOTAL_SHARES_OUTSTANDING", "FQ",ignore_invalid_symbol=true)
 series float TSOFY =request.financial(syminfo.tickerid, "TOTAL_SHARES_OUTSTANDING", "FY",ignore_invalid_symbol=true)
-MarketCap = helper.IsStock()? (na(TSOFQ)?TSOFY:TSOFQ) * close:0
+MarketCap = ph.IsStock()? (na(TSOFQ)?TSOFY:TSOFQ) * close:0
 
 //Free Float Value
 series float FSOFY =nz(request.financial(syminfo.tickerid, 'FLOAT_SHARES_OUTSTANDING', 'FY',ignore_invalid_symbol=true))
-FreeFloat=helper.IsStock()? FSOFY*ta.vwap:0
+FreeFloat=ph.IsStock()? FSOFY*ta.vwap:0
 
 //// Table Generation
 show_dashboard = input(true, "Dashboard" )
 
-int rowId=0
 int colId=0
-
-method Cells(table tbl,int rowId, int colId,string cellText,color backgroundcolor)=>
-    table.cell(tbl,colId,rowId,cellText,text_color = color.white,bgcolor = backgroundcolor)
-
 if barstate.islast and show_dashboard
     var dashboard= table.new("top_center",10,2)
  
-    dashboard.Cells(rowId,colId,"MCAP",color.black)
-    dashboard.Cells(rowId+1,colId,helper.ToCrore(MarketCap), helper.GetBGColor(helper.RatioCrore(MarketCap),500,1000,10000,100000,200000))
-    colId:=colId+1
-    
-    dashboard.Cells(rowId,colId,"FF",color.black)
-    dashboard.Cells(rowId+1,colId, helper.ToCrore(FreeFloat), helper.GetBGColor(helper.RatioCrore(FreeFloat),300,500,1000,10000,100000))
+    VerticleCell(dashboard,colId,"MCAP",ph.ToCrore(MarketCap), ph.GetBGColor(ph.RatioCrore(MarketCap),500,1000,10000,100000,200000))
     colId:=colId+1
 
-    dashboard.Cells(rowId,colId,"Test",color.black)
-    dashboard.Cells(rowId+1,colId, str.tostring("Test"), color(na))
+    VerticleCell(dashboard,colId, "FF",ph.ToCrore(FreeFloat), ph.GetBGColor(ph.RatioCrore(FreeFloat),300,500,1000,10000,100000))
     colId:=colId+1
+
+    VerticleCell(dashboard,colId,"Test","Test",color(na))
+    colId:=colId+1
+   

@@ -1,17 +1,17 @@
 //@version=5
 indicator("Dashboard",overlay= true)
-import vkpunique/PineHelper/4 as ph
+import vkpunique/PineHelper/5 as ph
 
 //Replace this functions On next PineHelper Update 
-method VerticleCell(table tbl, int colId,string cellTitle,string cellText,color backgroundcolor)=>
-    table.cell(tbl,colId,0,cellTitle,text_color = color.white,bgcolor = color.black)
-    table.cell(tbl,colId,1,cellText,text_color = color.white,bgcolor = backgroundcolor)
-
-method GetBGColor(bool value) =>
-	switch value
-		true=>color.green
-		false=>color.red
-		=>color(na)
+method GetBGColorUp(float x,float badValue,float okValue,float normalValue)=>
+    if x<badValue
+        color.red
+    else if x<okValue
+        color.orange
+    else if x<normalValue
+        color(na)
+    else
+        color.green
 
 //General variables
 [dailyOpen,dailyHigh,dailyLow,dailyClose] = request.security(syminfo.tickerid, "1D", [open,high,low,close])
@@ -35,6 +35,18 @@ float ema10_Percentate=ph.Percentage(dailyClose,ema10)
 float ema21_Percentate=ph.Percentage(dailyClose,ema21)
 float ema50_Percentate=ph.Percentage(dailyClose,ema50)
 
+////Ath Calculatoin
+GetAllTimeHigh(dataSeries = high) =>
+    highestHTF = request.security(syminfo.tickerid, "D", 
+         ph.GetChartHighest(dataSeries)[1], lookahead=barmerge.lookahead_on)
+    highestChartTF = ph.GetChartHighest(dataSeries)
+    math.max(highestHTF, highestChartTF)
+
+ath_Percentage=ph.Percentage(dailyClose,GetAllTimeHigh()[0])
+
+//// ADR Calculation
+adr_Percentage = (request.security(syminfo.tickerid, "1D",ta.sma(high/low, 20)) - 1)
+
 //// Table Generation
 show_dashboard = input(true, "Dashboard" )
 
@@ -42,24 +54,30 @@ int colId=0
 if barstate.islast and show_dashboard
     var dashboard= table.new("top_center",10,2)
  
-    VerticleCell(dashboard,colId,"MCAP",ph.ToCrore(MarketCap), ph.GetBGColor(ph.RatioCrore(MarketCap),500,1000,10000,100000,200000))
+    ph.VerticleCell(dashboard,colId,"MCAP",ph.ToCrore(MarketCap), ph.GetBGColor(ph.RatioCrore(MarketCap),500,1000,10000,100000,200000))
     colId:=colId+1
 
-    VerticleCell(dashboard,colId, "FF",ph.ToCrore(FreeFloat), ph.GetBGColor(ph.RatioCrore(FreeFloat),300,500,1000,10000,100000))
+    ph.VerticleCell(dashboard,colId, "FF",ph.ToCrore(FreeFloat), ph.GetBGColor(ph.RatioCrore(FreeFloat),300,500,1000,10000,100000))
     colId:=colId+1
 
-    VerticleCell(dashboard,colId,"EMA",IsTrendingEMA?"Pass":"Fail",GetBGColor(IsTrendingEMA))
+    ph.VerticleCell(dashboard,colId,"EMA",IsTrendingEMA?"Pass":"Fail",ph.GetBGColor(IsTrendingEMA))
     colId:=colId+1
 
-    VerticleCell(dashboard,colId,"EMA 10",ph.ToPercentage(ema10_Percentate),ph.GetBGColor(ema10_Percentate,-0.01,0,0.03,0.1,0.15))
+    ph.VerticleCell(dashboard,colId,"EMA 10",ph.ToPercentage(ema10_Percentate),ph.GetBGColor(ema10_Percentate,-0.01,0,0.03,0.1,0.15))
     colId:=colId+1
 
-    VerticleCell(dashboard,colId,"EMA 21",ph.ToPercentage(ema21_Percentate),ph.GetBGColor(ema10_Percentate,-0.01,0,0.03,0.1,0.15))
+    ph.VerticleCell(dashboard,colId,"EMA 21",ph.ToPercentage(ema21_Percentate),ph.GetBGColor(ema10_Percentate,-0.01,0,0.03,0.1,0.15))
     colId:=colId+1
 
-    VerticleCell(dashboard,colId,"EMA 50",ph.ToPercentage(ema50_Percentate),ph.GetBGColor(ema10_Percentate,-0.01,0,0.03,0.1,0.15))
+    ph.VerticleCell(dashboard,colId,"EMA 50",ph.ToPercentage(ema50_Percentate),ph.GetBGColor(ema10_Percentate,-0.01,0,0.03,0.1,0.15))
     colId:=colId+1
 
-    VerticleCell(dashboard,colId,"Test","Test",color(na))
+    ph.VerticleCell(dashboard,colId,"ATH",ph.ToPercentage(ath_Percentage),ph.GetBGColor(ath_Percentage,-0.2,-0.15,-0.1,-0.01,-0.005))
     colId:=colId+1
-   
+
+    ph.VerticleCell(dashboard,colId,"ADR",ph.ToPercentage(adr_Percentage),GetBGColorUp(adr_Percentage,0,0.025,0.05))
+    colId:=colId+1
+
+    ph.VerticleCell(dashboard,colId,"Test","Test",color(na))
+    colId:=colId+1
+    

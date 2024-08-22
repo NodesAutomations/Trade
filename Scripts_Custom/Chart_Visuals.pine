@@ -1,0 +1,81 @@
+//@version=5 
+indicator(title="Chart Visuals", overlay=true)
+import vkpunique/PineHelper/3 as helper
+
+//Tolerance for Calculation Checks
+float tolerance=input.float(0.1,"Tolerance %", minval=0.1, maxval=2, step=0.1)/100
+
+//// Plot Moving Averages
+show_10d = input(true, "10 Bar EMA")
+plot(show_10d ? helper.GetEMA(10) : na, color = #ef2a57, title="10 Day")
+
+show_21d = input(true , "21 Bar EMA" )
+plot(show_21d ?  helper.GetEMA(21) : na, color = #fc941a, title="21 Day")
+
+show_50d = input(true , "50 Bar EMA" )
+plot(show_50d ?helper.GetEMA( 50 ) : na, color = #4eaf53, title="50 Day")
+
+show_100d = input(false , "100 Bar EMA" )
+plot(show_100d ? helper.GetEMA( 100 ) : na, color = #3768fd, title="100 Day")
+
+show_200d = input(false, "200 Bar EMA" )
+plot(show_200d ? helper.GetEMA( 200 ) : na, color = #fde947, title="200 Day")
+
+
+//// Plot All time High
+GetAllTimeHigh(dataSeries = high) =>
+    highestHTF = request.security(syminfo.tickerid, "D", 
+          helper.GetChartHighest(dataSeries)[1], lookahead=barmerge.lookahead_on)
+    highestChartTF = helper.GetChartHighest(dataSeries)
+    math.max(highestHTF, highestChartTF)
+
+plot(series=GetAllTimeHigh(), color=color.white, linewidth=1,title="All-Time High")
+
+//// Bull Snort
+show_BullSnort = input(true, "BullSnort" ) and not timeframe.isintraday
+if show_BullSnort
+    vol = ta.sma(volume, 50)
+    if  volume >= (vol*3) and close > close[1] and close > hlc3  == true
+        label.new(bar_index, low, yloc= yloc.belowbar, color= color.white, style= label.style_circle , size = size.auto)
+
+//// Inside bar
+show_InsideBar=input(true,"InsideBar") and not timeframe.isintraday
+data=high[1]*(1+tolerance)>=high and low[1]<=low*(1+tolerance) and show_InsideBar
+plotshape(data, style=shape.diamond,location = location.belowbar, color= color.yellow, size = size.tiny, show_last=50)
+
+show_10d_Intraday = input(true, "10 Day EMA On IntraDay")  and  timeframe.isintraday
+plot(show_10d_Intraday?  request.security(syminfo.tickerid, "1D",helper.GetEMA(10)) : na, color = #ef2a57,linewidth = 2, title="10 Day Fix")
+
+//// Intraday Box
+
+show_Intraday_Box = input(true, "IntraDay Box")  and  timeframe.isintraday
+var dayHigh = 0.0
+var dayLow  = 0.0
+var preDayClose = 0.0
+var box dailyBox = na
+
+// See if a new calendar day started on the intra-day time frame
+newDayStart = dayofmonth != dayofmonth[1] and show_Intraday_Box
+
+// If a new day starts, set the high and low to that bar's data. Else
+// during the day track the highest high and lowest low.
+if newDayStart
+    dayHigh := high
+    dayLow  := low
+    preDayClose := close[1]
+else
+    dayHigh := math.max(dayHigh, high)
+    dayLow  := math.min(dayLow, low)
+
+// When a new day start, create a new box for that day.
+// Else, during the day, update that day's box.
+if newDayStart
+    dailyBox := box.new(left=bar_index, top=dayHigh,right=bar_index + 1, bottom=dayLow,border_width=1,border_style = line.style_dashed)
+    box.set_right(dailyBox[1], bar_index[1])
+else
+    box.set_top(dailyBox, dayHigh)
+    box.set_rightbottom(dailyBox, right=bar_index + 1, bottom=dayLow)
+    // Box Color Update
+    boxColor=close>preDayClose?color.green:color.red
+    box.set_bgcolor(dailyBox, color.new(boxColor, 90))
+    box.set_border_color(dailyBox, boxColor)

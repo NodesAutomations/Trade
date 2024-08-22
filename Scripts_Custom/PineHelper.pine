@@ -30,8 +30,7 @@ export method ToPercentage(float value)=>
     str.tostring(value,"0.00%")
 
 export method ToCrore(float value)=>
-    str.tostring(value/10000000,"0")+"Cr"
-
+    value==0?"-":str.tostring(value/10000000,"0")+" Cr"
 
 // @function Get Background Color Using 0,1 input
 // @returns Color Type

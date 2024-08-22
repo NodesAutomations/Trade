@@ -102,10 +102,14 @@ export method VerticleCell(table tbl, int colId,string cellTitle,string cellText
     table.cell(tbl,colId,0,cellTitle,text_color = color.white,bgcolor = color.black)
     table.cell(tbl,colId,1,cellText,text_color = color.white,bgcolor = backgroundcolor)
 
-export method VerticleCell(table tbl,int rowId, int colId,string cellTitle,string cellText,color backgroundcolor)=>
+export method VerticleCell2(table tbl,int rowId, int colId,string cellTitle,string cellText,color backgroundcolor)=>
     table.cell(tbl,colId,rowId,cellTitle,text_color = color.white,bgcolor = color.black)
     table.cell(tbl,colId,rowId+1,cellText,text_color = color.white,bgcolor = backgroundcolor)
 
+method VerticleCell3(table tbl,int rowId, int colId,string cellTitle,string cellText,color backgroundcolor)=>
+    table.cell(tbl,colId,rowId,cellTitle,text_color = color.white,bgcolor = color.black)
+    table.cell(tbl,colId,rowId+1,cellText,text_color = color.white,bgcolor = backgroundcolor)
+    table.cell(tbl,colId,rowId+2,"",text_color = color.white,bgcolor = color(na))
 
 //Custom Types
 export type Trade

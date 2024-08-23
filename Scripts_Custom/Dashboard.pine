@@ -85,15 +85,11 @@ dmonth = int( str.tonumber(str.substring(dateString, 4, 6)))
 dday = int( str.tonumber(str.substring(dateString, 6, 8)))
 
 startDate= timestamp(dyear, dmonth,dday, 0, 0)
-
 int NOD= ((currentDate-startDate)/(24 * 60 * 60 * 1000))+1
 
-
 //// Table Generation
-show_dashboard = input(true, "Dashboard" )
-
 int colId=0
-if barstate.islast and show_dashboard
+if barstate.islast 
     var dashboard= table.new("top_center",20,2)
  
     ph.VerticleCell(dashboard,colId,"MCAP",ph.ToCrore(MarketCap), ph.GetBGColor(ph.RatioCrore(MarketCap),500,1000,10000,100000,200000))

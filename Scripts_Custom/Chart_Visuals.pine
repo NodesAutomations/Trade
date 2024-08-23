@@ -1,54 +1,61 @@
 //@version=5 
 indicator(title="Chart Visuals", overlay=true)
-import vkpunique/PineHelper/3 as helper
+import vkpunique/PineHelper/7 as ph
+
+//Groups
+string settingsGrup = "═══════════════ Configuration ═══════════════"
+string chartPlotGrup = "════════════════ Chart Plot ════════════════"
+string chartLabelGrup = "════════════════ Chart Label ════════════════"
+string intraDayGrup = "═════════════════ IntraDay ═════════════════"
 
 //Tolerance for Calculation Checks
-float tolerance=input.float(0.1,"Tolerance %", minval=0.1, maxval=2, step=0.1)/100
+float tolerance=input.float(0.1,"Tolerance %", minval=0.1, maxval=2, step=0.1,group = settingsGrup)/100
 
 //// Plot Moving Averages
-show_10d = input(true, "10 Bar EMA")
-plot(show_10d ? helper.GetEMA(10) : na, color = #ef2a57, title="10 Day")
+show_10d = input(true, "10 Bar EMA",group = chartPlotGrup)
+plot(show_10d ? ph.GetEMA(10) : na, color = #ef2a57, title="10 Day")
 
-show_21d = input(true , "21 Bar EMA" )
-plot(show_21d ?  helper.GetEMA(21) : na, color = #fc941a, title="21 Day")
+show_21d = input(true , "21 Bar EMA",group = chartPlotGrup )
+plot(show_21d ?  ph.GetEMA(21) : na, color = #fc941a, title="21 Day")
 
-show_50d = input(true , "50 Bar EMA" )
-plot(show_50d ?helper.GetEMA( 50 ) : na, color = #4eaf53, title="50 Day")
+show_50d = input(true , "50 Bar EMA",group = chartPlotGrup )
+plot(show_50d ?ph.GetEMA( 50 ) : na, color = #4eaf53, title="50 Day")
 
-show_100d = input(false , "100 Bar EMA" )
-plot(show_100d ? helper.GetEMA( 100 ) : na, color = #3768fd, title="100 Day")
+show_100d = input(false , "100 Bar EMA" ,group = chartPlotGrup)
+plot(show_100d ? ph.GetEMA( 100 ) : na, color = #3768fd, title="100 Day")
 
-show_200d = input(false, "200 Bar EMA" )
-plot(show_200d ? helper.GetEMA( 200 ) : na, color = #fde947, title="200 Day")
+show_200d = input(false, "200 Bar EMA" ,group = chartPlotGrup)
+plot(show_200d ? ph.GetEMA( 200 ) : na, color = #fde947, title="200 Day")
 
 
 //// Plot All time High
 GetAllTimeHigh(dataSeries = high) =>
     highestHTF = request.security(syminfo.tickerid, "D", 
-          helper.GetChartHighest(dataSeries)[1], lookahead=barmerge.lookahead_on)
-    highestChartTF = helper.GetChartHighest(dataSeries)
+          ph.GetChartHighest(dataSeries)[1], lookahead=barmerge.lookahead_on)
+    highestChartTF = ph.GetChartHighest(dataSeries)
     math.max(highestHTF, highestChartTF)
 
-plot(series=GetAllTimeHigh(), color=color.white, linewidth=1,title="All-Time High")
+show_ATH = input(true, "ATH" ,group = chartPlotGrup)
+plot(series=show_ATH? GetAllTimeHigh():na, color=color.white, linewidth=1,title="All-Time High")
 
 //// Bull Snort
-show_BullSnort = input(true, "BullSnort" ) and not timeframe.isintraday
+show_BullSnort = input(true, "BullSnort" ,group = chartLabelGrup) and not timeframe.isintraday
 if show_BullSnort
     vol = ta.sma(volume, 50)
     if  volume >= (vol*3) and close > close[1] and close > hlc3  == true
         label.new(bar_index, low, yloc= yloc.belowbar, color= color.white, style= label.style_circle , size = size.auto)
 
 //// Inside bar
-show_InsideBar=input(true,"InsideBar") and not timeframe.isintraday
+show_InsideBar=input(true,"InsideBar",group = chartLabelGrup) and not timeframe.isintraday
 data=high[1]*(1+tolerance)>=high and low[1]<=low*(1+tolerance) and show_InsideBar
 plotshape(data, style=shape.diamond,location = location.belowbar, color= color.yellow, size = size.tiny, show_last=50)
 
-show_10d_Intraday = input(true, "10 Day EMA On IntraDay")  and  timeframe.isintraday
-plot(show_10d_Intraday?  request.security(syminfo.tickerid, "1D",helper.GetEMA(10)) : na, color = #ef2a57,linewidth = 2, title="10 Day Fix")
+show_10d_Intraday = input(true, "10 Day EMA On IntraDay",group = intraDayGrup)  and  timeframe.isintraday
+plot(show_10d_Intraday?  request.security(syminfo.tickerid, "1D",ph.GetEMA(10)) : na, color = #ef2a57,linewidth = 2, title="10 Day Fix")
 
 //// Intraday Box
 
-show_Intraday_Box = input(true, "IntraDay Box")  and  timeframe.isintraday
+show_Intraday_Box = input(true, "IntraDay Box",group = intraDayGrup)  and  timeframe.isintraday
 var dayHigh = 0.0
 var dayLow  = 0.0
 var preDayClose = 0.0

@@ -1,15 +1,6 @@
-// This Pine Script™ code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
-// © vkpunique
-
 //@version=5
 indicator("Calculator",overlay= true)
-import vkpunique/PineHelper/7 as ph
-
-//Replace this with phhelper
-method VerticleCell3(table tbl,int rowId, int colId,string cellTitle,string cellText,color backgroundcolor)=>
-    table.cell(tbl,colId,rowId,cellTitle,text_color = color.white,bgcolor = color.black)
-    table.cell(tbl,colId,rowId+1,cellText,text_color = color.white,bgcolor = backgroundcolor)
-    table.cell(tbl,colId,rowId+2,"",text_color = color.white,bgcolor = color(na))
+import vkpunique/PineHelper/8 as ph
 
 //General variables
 [dayOpen,dayHigh,dayLow,dayClose] = request.security(syminfo.tickerid, "1D", [open,high,low,close])
@@ -44,40 +35,45 @@ stoploss_Percentage= (close-stoploss)/stoploss
 GetStoplossBGColor(x)=>x>0.04?color.red: x>=0.025?color.orange:x>=0.01?color(na):color.green
 
 //Quantity
-int positionSize=input.int(300, "Position", minval=200, maxval=1000, step=1)*1000
+int positionSize=input.int(400, "Position", minval=200, maxval=1000, step=1)*1000
 int qty=math.round(positionSize/close)
 
 int rowId=0
-int colId=0
 if barstate.islast 
     var dashboard= table.new("top_right",2,20)
 
-    VerticleCell3( dashboard,rowId,colId,"RVol",ph.ToPercentage(rvol_Percentate),GetRvolBGColor(rvol_Percentate))
-    colId:=colId+1
+    ph.HorizontalCell( dashboard,rowId,"RVol",ph.ToPercentage(rvol_Percentate),GetRvolBGColor(rvol_Percentate))
+    rowId:=rowId+1
 
-    VerticleCell3( dashboard,rowId,colId,"DCR",ph.ToPercentage(dcr_Percentage), GetDcrBGColor(dcr_Percentage))
-    colId:=colId+1
+    ph.HorizontalCell( dashboard,rowId,"DCR",ph.ToPercentage(dcr_Percentage), GetDcrBGColor(dcr_Percentage))
+    rowId:=rowId+1
 
-    rowId:=rowId+3
-    colId:=0
-    VerticleCell3(dashboard,rowId,colId,"Open",ph.ToPercentage(open_Percentage),ph.GetBGColorUp(open_Percentage,-0.01,0,0.01))
-    colId:=colId+1
+    ph.HorizontalCellBlank(dashboard,rowId)
+    rowId:=rowId+1
 
-    VerticleCell3(dashboard,rowId,colId,"Gap",ph.ToPercentage(gap_Percentage),ph.GetBGColorUp(gap_Percentage,-0.01,0,0.01))
-    colId:=colId+1
+    ph.HorizontalCell(dashboard,rowId,"Open",ph.ToPercentage(open_Percentage),ph.GetBGColorUp(open_Percentage,-0.01,0,0.01))
+    rowId:=rowId+1
 
-    rowId:=rowId+3
-    colId:=0
-    VerticleCell3(dashboard,rowId,colId,"SL%",ph.ToPercentage(stoploss_Percentage),GetStoplossBGColor(stoploss_Percentage))
-    colId:=colId+1
+    ph.HorizontalCell(dashboard,rowId,"Gap",ph.ToPercentage(gap_Percentage),ph.GetBGColorUp(gap_Percentage,-0.01,0,0.01))
+    rowId:=rowId+1
 
-    VerticleCell3(dashboard,rowId,colId,"SL AT",str.tostring(slEnum),color(na))
-    colId:=colId+1
+    ph.HorizontalCellBlank(dashboard,rowId)
+    rowId:=rowId+1
 
-    rowId:=rowId+3
-    colId:=0
-    VerticleCell3(dashboard,rowId,colId,"SL",ph.ToOneDecimal(stoploss),color(na))
-    colId:=colId+1
+    ph.HorizontalCell(dashboard,rowId,"SL AT",str.tostring(slEnum),color(na))
+    rowId:=rowId+1
 
-    VerticleCell3(dashboard,rowId,colId,"QTY",ph.ToNoDecimal(qty),color(na))
-    colId:=colId+1
+    ph.HorizontalCell(dashboard,rowId,"SL%",ph.ToPercentage(stoploss_Percentage),GetStoplossBGColor(stoploss_Percentage))
+    rowId:=rowId+1
+
+    ph.HorizontalCell(dashboard,rowId,"SL",ph.ToOneDecimal(stoploss),color(na))
+    rowId:=rowId+1
+
+    ph.HorizontalCellBlank(dashboard,rowId)
+    rowId:=rowId+1
+
+    ph.HorizontalCell(dashboard,rowId,"Pos",ph.ToNoDecimal(positionSize),color(na))
+    rowId:=rowId+1
+
+    ph.HorizontalCell(dashboard,rowId,"QTY",ph.ToNoDecimal(qty),color(na))
+    rowId:=rowId+1

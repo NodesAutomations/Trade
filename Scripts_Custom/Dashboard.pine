@@ -1,12 +1,43 @@
 //@version=5
 indicator("Dashboard",overlay= true)
-import vkpunique/PineHelper/7 as ph
+import vkpunique/PineHelper/9 as ph
 
 //Current Holding
-
 var holdingMap= map.new<string,ph.Trade>()
 holdingMap.put("LIKHITHA",ph.Trade.new(482.81,"20240712"))
 holdingMap.put("JINDALSAW",ph.Trade.new(663.65,"20240822"))
+holdingMap.put("PFS",ph.Trade.new(59.12,"20240827"))
+
+var triggerMap= map.new<string,float>()
+triggerMap.put("GODIGIT",378)
+triggerMap.put("AFIL",134)
+triggerMap.put("MOTILALOFS",706)
+triggerMap.put("GEOJITFSL",115)
+triggerMap.put("BLS",403)
+triggerMap.put("SUBROS",760)
+triggerMap.put("CAPLIPOINT",1780)
+triggerMap.put("PFS",59)
+triggerMap.put("BIKAJI",860)
+triggerMap.put("NSIL",4760)
+triggerMap.put("HEROMOTOCO",5450)
+triggerMap.put("INOXWIND",230)
+triggerMap.put("KPITTECH",1870)
+triggerMap.put("MANAPPURAM",218)
+triggerMap.put("WABAG",1380)
+triggerMap.put("GENESYS",739)
+triggerMap.put("RKFORGE",973)
+triggerMap.put("SHARDAMOTR",2780)
+triggerMap.put("DLINKINDIA",638)
+triggerMap.put("IONEXCHANG",747)
+triggerMap.put("JYOTHYLAB",574)
+triggerMap.put("IREDA",266)
+triggerMap.put("METROBRAND",1402)
+triggerMap.put("KELLTONTEC",169)
+triggerMap.put("CARTRADE",931)
+triggerMap.put("ROSSELLIND",612)
+triggerMap.put("MAYURUNIQ",675)
+triggerMap.put("TVSSRICHAK",5097)
+triggerMap.put("MAZDOCK",4640)
 
 //Industry Trend
 GetIndustryTrend(string industry)=>
@@ -18,6 +49,7 @@ GetIndustryTrend(string industry)=>
     industryMap.put("Building Products",1)
     industryMap.put("Chemicals: Agricultural",1)
     industryMap.put("Chemicals: Specialty",1)
+    industryMap.put("Data Processing Services",1)
     industryMap.put("Electronic Equipment/Instruments",1)
     industryMap.put("Electronic Production Equipment",1)
     industryMap.put("Finance/Rental/Leasing",1)
@@ -25,12 +57,17 @@ GetIndustryTrend(string industry)=>
     industryMap.put("Hospital/Nursing Management",1)
     industryMap.put("Household/Personal Care",1)
     industryMap.put("Industrial Specialties",1)
+    industryMap.put("Information Technology Services",1)
+    industryMap.put("Internet Software/Services",1)
     industryMap.put("Investment Banks/Brokers",1)
+    industryMap.put("Industrial Machinery",1)
     industryMap.put("Medical/Nursing Services",1)
     industryMap.put("Motor Vehicles",1)
+    industryMap.put("Packaged Software",1)
     industryMap.put("Steel",1)
     industryMap.put("Textiles",1)
     industryMap.put("Trucks/Construction/Farm Machinery",1)
+
 	industryMap.contains(industry)?industryMap.get(industry):0
 
 //General variables
@@ -70,9 +107,14 @@ ath_Percentage=ph.Percentage(dailyClose,GetAllTimeHigh()[0])
 //// ADR Calculation
 adr_Percentage = (request.security(syminfo.tickerid, "1D",ta.sma(high/low, 20)) - 1)
 
+//Trigger Calculation
+float trigger=triggerMap.contains(syminfo.ticker)?triggerMap.get(syminfo.ticker):0
+trigger_Percentage=trigger>0? ph.Percentage(close,trigger):0
+GetTriggerBGColor(x)=>x>=0.02?color.red:x>=-0.02?color.green:color(na)
+
 // Gain 
 float buyPrice=holdingMap.contains(syminfo.ticker)?holdingMap.get(syminfo.ticker).BuyPrice:0
-float gain_Percentage=buyPrice>0? (close-buyPrice) /buyPrice:0
+float gain_Percentage=buyPrice>0?ph.Percentage(close,buyPrice) :0
 
 //NOD
 currentDate = timestamp(year(timenow), month(timenow), dayofmonth(timenow), 0, 0)
@@ -97,7 +139,7 @@ if barstate.islast
     ph.VerticleCell(dashboard,colId, "FF",ph.ToCrore(FreeFloat), ph.GetBGColor(ph.RatioCrore(FreeFloat),300,500,1000,10000,100000))
     colId:=colId+1
 
-    ph.VerticleCell(dashboard,colId,"FNO",isFnoStock?"Yes":"No",ph.GetBGColor3(isFnoStock?-1:0))
+    ph.VerticleCellBlank(dashboard,colId)
     colId:=colId+1
 
     ph.VerticleCell(dashboard,colId,"EMA",IsTrendingEMA?"Pass":"Fail",ph.GetBGColor(IsTrendingEMA))
@@ -118,7 +160,19 @@ if barstate.islast
     ph.VerticleCell(dashboard,colId,"ADR",ph.ToPercentage(adr_Percentage),ph.GetBGColorUp(adr_Percentage,0,0.025,0.05))
     colId:=colId+1
 
+    ph.VerticleCellBlank(dashboard,colId)
+    colId:=colId+1
+
+    ph.VerticleCell(dashboard,colId,"FNO",isFnoStock?"Yes":"No",ph.GetBGColor3(isFnoStock?-1:0))
+    colId:=colId+1
+
     ph.VerticleCell(dashboard,colId,"Industry",syminfo.industry,ph.GetBGColor3(GetIndustryTrend(syminfo.industry)))
+    colId:=colId+1
+
+    ph.VerticleCellBlank(dashboard,colId)
+    colId:=colId+1
+
+    ph.VerticleCell(dashboard,colId,"GTT",trigger>0?ph.ToPercentage(trigger_Percentage):"-",ph.GetBGColorDown(trigger_Percentage,0.02,0,-0.02))
     colId:=colId+1
 
     ph.VerticleCell(dashboard,colId,"Gain",buyPrice>0?ph.ToPercentage(gain_Percentage):"-",ph.GetBGColorUp(gain_Percentage,-0.03,0,0.06))

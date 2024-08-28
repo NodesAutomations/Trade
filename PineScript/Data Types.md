@@ -1,3 +1,23 @@
+### Array
+```js
+    var data= array.new<float>()
+    data.push(101)
+    data.push(102)
+    data.push(103)
+
+
+    //Get Array Size
+    int length= data.size()
+
+    //Get Data Using Index
+    float firstValue=data.get(0)
+    float secondValue=data.get(1)
+
+    //Get data using function
+    float firstValue= data.first()
+    float lastValue= data.last()
+```
+
 ### Map
 ```js
 var triggerMap= map.new<string,float>()

@@ -1,10 +1,6 @@
 //@version=5
 indicator("Calculator",overlay= true)
-import vkpunique/PineHelper/8 as ph
-
-// Replace on next pinehelper update
-method ToThousand(float value)=>
-    value==0?"-":str.tostring(value/1000,"0")+" K"
+import vkpunique/PineHelper/9 as ph
 
 //General variables
 [dayOpen,dayHigh,dayLow,dayClose] = request.security(syminfo.tickerid, "1D", [open,high,low,close])
@@ -14,25 +10,23 @@ method ToThousand(float value)=>
 today_vol = request.security(syminfo.tickerid, "D", volume)
 yday_vol = request.security(syminfo.tickerid, "D", volume[1])
 avg_vol = request.security(syminfo.tickerid, "D", ta.sma(yday_vol, 20))
-rvol_Percentate = (today_vol / avg_vol ) 
-GetRvolBGColor(x)=>x>=0.8?color.green:x>=0.5?color(na):x>=0.3?color.orange:color.red
+float rvol_Percentate =ph.IsStock()?(today_vol / avg_vol):0
 
-//DCR
-dcr_Percentage=(dayClose-dayLow)/(dayHigh-dayLow)
-GetDcrBGColor(x)=>x>=0.8?color.green:x>=0.5?color(na):x>=0.3?color.orange:color.red
-
-//Candle Stats
+////Candle Stats
 open_Percentage=ph.Percentage(dayOpen,preDayClose)  
 gap_Percentage= ph.Percentage(dayLow,preDayClose)  
 candleHigh_Percentage= ph.Percentage(close,dayHigh)
 candleLow_Percentage= ph.Percentage(close,dayLow)
 
+dcr_Percentage=(dayClose-dayLow)/(dayHigh-dayLow)
+GetDcrBGColor(x)=>x>=0.8?color.green:x>=0.5?color(na):x>=0.3?color.orange:color.red
+
 //Stoploss
 GetSL(x)=>math.round_to_mintick(math.round(x*(1-0.002),2))
 float stoploss = GetSL(dayLow)
-stoploss_Percentage= (close-stoploss)/stoploss
+stoploss_Percentage=ph.Percentage(close,stoploss)
 float preDayStoploss = GetSL(preDayLow)
-preDay_stoploss_Percentage= (close-preDayStoploss)/preDayStoploss
+preDay_stoploss_Percentage= ph.Percentage(close,preDayStoploss)
 GetStoplossBGColor(x)=>x>0.04?color.red: x>=0.025?color.orange:x>=0.01?color(na):color.green
 
 //Quantity
@@ -43,10 +37,7 @@ int rowId=0
 if barstate.islast 
     var dashboard= table.new("top_right",2,20)
 
-    ph.HorizontalCell( dashboard,rowId,"RVol",ph.ToPercentage(rvol_Percentate),GetRvolBGColor(rvol_Percentate))
-    rowId:=rowId+1
-
-    ph.HorizontalCell( dashboard,rowId,"DCR",ph.ToPercentage(dcr_Percentage), GetDcrBGColor(dcr_Percentage))
+    ph.HorizontalCell( dashboard,rowId,"RVol",ph.ToPercentage(rvol_Percentate),rvol_Percentate>0?ph.GetBGColorUp(rvol_Percentate,0.15,0.3,0.5):color(na))
     rowId:=rowId+1
 
     ph.HorizontalCellBlank(dashboard,rowId)
@@ -62,6 +53,9 @@ if barstate.islast
     rowId:=rowId+1
 
     ph.HorizontalCell(dashboard,rowId,"Low",ph.ToPercentage(candleLow_Percentage),color(na))
+    rowId:=rowId+1
+
+    ph.HorizontalCell( dashboard,rowId,"DCR",ph.ToPercentage(dcr_Percentage), GetDcrBGColor(dcr_Percentage))
     rowId:=rowId+1
 
     ph.HorizontalCellBlank(dashboard,rowId)
@@ -91,7 +85,7 @@ if barstate.islast
     ph.HorizontalCellBlank(dashboard,rowId)
     rowId:=rowId+1
 
-    ph.HorizontalCell(dashboard,rowId,"Pos",ToThousand(positionSize),color(na))
+    ph.HorizontalCell(dashboard,rowId,"Pos",ph.ToThousand(positionSize),color(na))
     rowId:=rowId+1
 
     ph.HorizontalCell(dashboard,rowId,"QTY",ph.ToNoDecimal(qty),color(na))

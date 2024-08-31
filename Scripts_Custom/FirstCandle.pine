@@ -1,0 +1,32 @@
+//@version=5
+indicator("FirstCandle",overlay= true)
+import vkpunique/PineHelper/11 as ph
+
+newbar(res) => ta.change(time(res)) == 0 ? 0 : 1
+// Returns 1st min close at open RTH at 09:30 close of the current symbol.
+OPENtimeOk =  timestamp(syminfo.timezone, year(time), month(time), dayofmonth(time), 9, 15) == time
+Timeok = OPENtimeOk or timeframe.period == "D"
+
+//1 min High Calculations
+firststminHigh = request.security_lower_tf(syminfo.tickerid, "1", high)
+Highvalue_0 = newbar (timeframe.period) and array.size(firststminHigh) > 0 ? array.first(firststminHigh): na
+Highvalue = OPENtimeOk? Highvalue_0 :na
+var float fmh = na
+fmh := Timeok ?Highvalue: fmh[1]
+oneMinuteHigh=timeframe.isintraday?fmh[1]:Highvalue_0
+
+//1 min Low Calculations
+firststminLow = request.security_lower_tf(syminfo.tickerid, "1", low)
+Lowvalue_0 = newbar (timeframe.period) and array.size(firststminLow) > 0 ? array.first(firststminLow): na
+Lowvalue = OPENtimeOk? Lowvalue_0 :na
+var float fml = na
+fml := Timeok ?Lowvalue: fml[1]
+oneMinuteLow=timeframe.isintraday?fml[1]:Lowvalue_0
+if barstate.islast 
+    var data= array.new<ph.Result>()
+    
+    ph.AddResult(data,"1mHigh",str.tostring(oneMinuteHigh),color(na))
+    ph.AddResult(data,"1mHigh%",ph.ToPercentage(ph.Percentage(close,oneMinuteHigh)),color(na))
+    ph.AddResult(data,"1mLow",str.tostring(oneMinuteLow),color(na))
+    ph.AddResult(data,"1mLow%",ph.ToPercentage(ph.Percentage(close,oneMinuteLow)),color(na))
+    ph.GenerateTable(data,"bottom_right",ph.TableOrientation.Verticle)

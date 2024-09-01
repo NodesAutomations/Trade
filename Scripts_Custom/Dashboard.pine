@@ -14,9 +14,6 @@ MarketCap = ph.IsStock()? (na(TSOFQ)?TSOFY:TSOFQ) * close:0
 series float FSOFY =nz(request.financial(syminfo.tickerid, 'FLOAT_SHARES_OUTSTANDING', 'FY',ignore_invalid_symbol=true))
 FreeFloat=ph.IsStock()? FSOFY*ta.vwap:0
 
-//Fno IsStock
-bool isFnoStock= ph.IsFNOStock(syminfo.ticker)
-
 ////EMA Calculation
 float ema10 = request.security(syminfo.tickerid, "1D",ta.ema(close, 10))
 float ema21 = request.security(syminfo.tickerid, "1D",ta.ema(close, 21))
@@ -39,15 +36,22 @@ ath_Percentage=ph.Percentage(dailyClose,GetAllTimeHigh()[0])
 //// ADR Calculation
 adr_Percentage = (request.security(syminfo.tickerid, "1D",ta.sma(high/low, 20)) - 1)
 
-// Gain 
+//Fno IsStock
+bool isFnoStock= ph.IsFNOStock(syminfo.ticker)
+
+//Industry Trend
+var industryData = input.text_area(defval = "", title = "Industry Trend")
+GetIndustryTrend(string industry)=>
+	var industryMap= ph.GetMapDataInt(industryData)
+	industryMap.contains(industry)?industryMap.get(industry):0
+
+// Current Holding 
 var holdingData = input.text_area(defval = "", title = "Holdings")
 var holdingMap= ph.GetMapDataTrade(holdingData)
 float buyPrice=holdingMap.contains(syminfo.ticker)?holdingMap.get(syminfo.ticker).BuyPrice:0
 float gain_Percentage=buyPrice>0?ph.Percentage(close,buyPrice) :0
 
-//NOD
 currentDate = timestamp(year(timenow), month(timenow), dayofmonth(timenow), 0, 0)
-
 dateString = holdingMap.contains(syminfo.ticker)?holdingMap.get(syminfo.ticker).OrderDate: str.format_time(currentDate, "yyyyMMdd", syminfo.timezone)
 
 dyear =int( str.tonumber(str.substring(dateString, 0, 4)))
@@ -57,18 +61,12 @@ dday = int( str.tonumber(str.substring(dateString, 6, 8)))
 startDate= timestamp(dyear, dmonth,dday, 0, 0)
 int NOD= ((currentDate-startDate)/(24 * 60 * 60 * 1000))+1
 
-//Trigger Calculation
+//GTT Trigger
 var triggerData = input.text_area(defval = "", title = "GTT")
 var triggerMap= ph.GetMapDataFloat(triggerData)
 float trigger=triggerMap.contains(syminfo.ticker)?triggerMap.get(syminfo.ticker):0
 trigger_Percentage=trigger>0? ph.Percentage(close,trigger):0
 GetTriggerBGColor(x)=>x>=0.02?color.red:x>=-0.02?color.green:color(na)
-
-//Industry Trend
-var industryData = input.text_area(defval = "", title = "Sector Trend")
-GetIndustryTrend(string industry)=>
-	var industryMap= ph.GetMapDataInt(industryData)
-	industryMap.contains(industry)?industryMap.get(industry):0
 
 //// Table Generation
 var data= array.new<ph.Result>()

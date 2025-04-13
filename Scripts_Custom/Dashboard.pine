@@ -50,6 +50,7 @@ var holdingData = input.text_area(defval = "", title = "Holdings")
 var holdingMap= ph.GetMapDataTrade(holdingData)
 float buyPrice=holdingMap.contains(syminfo.ticker)?holdingMap.get(syminfo.ticker).BuyPrice:0
 float gain_Percentage=buyPrice>0?ph.Percentage(close,buyPrice) :0
+float breakEvenPercentage = ph.Percentage(buyPrice, close) 
 
 currentDate = timestamp(year(timenow), month(timenow), dayofmonth(timenow), 0, 0)
 dateString = holdingMap.contains(syminfo.ticker)?holdingMap.get(syminfo.ticker).OrderDate: str.format_time(currentDate, "yyyyMMdd", syminfo.timezone)
@@ -88,6 +89,7 @@ if barstate.islast
     ph.AddResult(data)
     
     ph.AddResult(data,"Gain",buyPrice>0?ph.ToPercentage(gain_Percentage):"-",ph.GetBGColorUp(gain_Percentage,-0.03,0,0.06))
+    ph.AddResult(data, "BE",buyPrice>0?ph.ToPercentage(breakEvenPercentage):"-" ,color(na))
     ph.AddResult(data,"NOD",buyPrice>0?str.tostring(NOD):"-",color(na))
     ph.AddResult(data,"GTT",trigger>0?ph.ToPercentage(trigger_Percentage):"-",ph.GetBGColorDown(trigger_Percentage,0.02,0,-0.02))
 

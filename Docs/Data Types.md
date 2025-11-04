@@ -1,3 +1,10 @@
+---
+title: Data Types
+nav_order: 3
+---
+
+# Data Types
+
 ### Array
 ```js
     var data= array.new<float>()

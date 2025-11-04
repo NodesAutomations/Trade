@@ -1,3 +1,10 @@
+---
+title: Debugging
+nav_order: 6
+---
+
+# Debugging
+
 ### Debugging using Log Function
 - Pinescript log functions allows you to display your values over console
 - It only have 3 functions

@@ -1,3 +1,10 @@
+---
+title: Variables
+nav_order: 4
+---
+
+# Variables
+
 ### Variable names
 - can contain A-Z or a-z letters
 - Underscore 

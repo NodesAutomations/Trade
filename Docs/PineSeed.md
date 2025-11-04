@@ -1,3 +1,10 @@
+---
+title: PineSeed
+nav_order: 9
+---
+
+# PineSeed
+
 ### Overview
 Pine Seeds is a service to import your custom data and access it via TradingView. This service allows you to:
 - connect your series data to TradingView

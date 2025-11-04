@@ -1,3 +1,10 @@
+---
+title: Table
+nav_order: 11
+---
+
+# Table
+
 ### Create Simple Table
 ```js
 indicator("Test",overlay= true)

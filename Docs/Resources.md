@@ -1,4 +1,11 @@
-### Offical Docs
+---
+title: Resources
+nav_order: 10
+---
+
+# Resources
+
+### Official Docs
 - [Pine Script Docs](https://www.tradingview.com/pine-script-docs/)
 - [Community Scripts](https://in.tradingview.com/scripts/)
 - [tradingcode](https://www.tradingcode.net/)

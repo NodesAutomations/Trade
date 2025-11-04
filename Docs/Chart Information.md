@@ -1,3 +1,10 @@
+---
+title: Chart Information
+nav_order: 7
+---
+
+# Chart Information
+
 ### Daily Values 
 - Current timeframe
     - use can use `open`, `close`, `high`,`low ` variable to get ohlc values of last candle

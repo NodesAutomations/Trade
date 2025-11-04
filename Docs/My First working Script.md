@@ -1,3 +1,10 @@
+---
+title: My First Working Script
+nav_order: 8
+---
+
+# My First Working Script
+
 ### Script 
 ```js
 //@version=5

@@ -9,7 +9,8 @@ edit_uri: edit/main/docs/
 
 # Navigation Tree
 nav:
-  - Home: index.md
+  - Home:
+  - index.md
   - How it Work: How it work.md
   - Data Types: Data Types.md
   - Variables: Variables.md
@@ -45,6 +46,8 @@ theme:
     - content.action.view # Allows "View on GitHub" links
     - content.code.copy # Allows code blocks to have a copy button
     - navigation.path # Enables path navigation top of docs for smaller screens
+    - navigation.tabs # Enables tabbed navigation
+    - navigation.indexes # Enables attachment of sub section index 
   icon:
     repo: fontawesome/brands/git-alt 
     edit: material/pencil 

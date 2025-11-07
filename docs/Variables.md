@@ -1,8 +1,3 @@
----
-title: Variables
-nav_order: 4
----
-
 # Variables
 
 ### Variable names

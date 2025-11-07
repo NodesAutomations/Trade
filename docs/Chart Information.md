@@ -1,8 +1,3 @@
----
-title: Chart Information
-nav_order: 7
----
-
 # Chart Information
 
 ### Daily Values 

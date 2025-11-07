@@ -1,8 +1,3 @@
----
-title: Table
-nav_order: 11
----
-
 # Table
 
 ### Create Simple Table

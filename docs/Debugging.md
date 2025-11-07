@@ -1,8 +1,3 @@
----
-title: Debugging
-nav_order: 6
----
-
 # Debugging
 
 ### Debugging using Log Function

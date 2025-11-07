@@ -1,8 +1,3 @@
----
-title: PineSeed
-nav_order: 9
----
-
 # PineSeed
 
 ### Overview

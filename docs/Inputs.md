@@ -1,8 +1,3 @@
----
-title: Inputs
-nav_order: 5
----
-
 # Inputs
 
 ### Get integer value

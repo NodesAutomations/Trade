@@ -1,8 +1,3 @@
----
-title: How it work?
-nav_order: 2
----
-
 ### How Pine Scripts are Executed?
 - A pine script is not like programs in many programming languages that executes once and then stop
 - it's runtime environment, a script runs in the equivalent of an invisible loop where it is executed once on each bar of whatever chart you are on, from left to right

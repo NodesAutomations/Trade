@@ -1,8 +1,3 @@
----
-title: Resources
-nav_order: 10
----
-
 # Resources
 
 ### Official Docs

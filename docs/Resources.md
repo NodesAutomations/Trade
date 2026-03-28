@@ -1,6 +1,6 @@
 # Resources
 
-## Youtube :simple-youtube:
+## :simple-youtube: Youtube 
 
 - [Ankur Patel](https://www.youtube.com/@AnkurPatel57)
     - Indian Market Updates
@@ -24,7 +24,7 @@
     - Learning new concepts and strategies
     - Live discussions on market trends and analysis
 
-## Twitter
+## :fontawesome-brands-square-x-twitter: Twitter
 
 - [Ankur Patel](https://twitter.com/AnkurPatel59)
     - Market Updates
@@ -39,5 +39,8 @@
     - Stock market guru
     - Learning new concepts and strategies
 
-## Books
+## :material-web: Websites
+Work in Progress
+
+## :fontawesome-solid-book: Books
 Work in Progress

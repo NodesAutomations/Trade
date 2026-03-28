@@ -1,6 +1,6 @@
 # Resources
 
-## Youtube
+## Youtube :simple-youtube:
 
 - [Ankur Patel](https://www.youtube.com/@AnkurPatel57)
     - Indian Market Updates

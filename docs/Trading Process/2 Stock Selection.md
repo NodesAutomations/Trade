@@ -9,6 +9,11 @@
 - Stock must be in Stage 2 Uptrend
 - Free Float Value >= 300 Cr
     - By setting a minimum free float value of 300 Cr, we can ensure that we are trading stocks that have sufficient liquidity and are less likely to be manipulated by large investors.
+- Stock must be within 15-20% of All Time High
+    - less overhead supply and more likely to have strong momentum
+- Stock Should belong to trending sector
+    - Prioritize stocks that belong to sectors that are currently trending in the market.
+    - Trending sectors are more likely to experience strong price movements and can provide better trading opportunities. 
 - Volume contraction with good volume on breakout day
     - Volume contraction indicates that the stock is consolidating and building up energy for a potential breakout. 
     - A breakout with good volume confirms that there is strong buying interest and increases the likelihood of a sustained uptrend.
@@ -18,9 +23,11 @@
   
 
 ## Optional Positive Criteria (Nice to have)
-- Breakout tChart pattern
+- Breakout Chart pattern
     - A breakout chart pattern, such as a cup and handle, ascending triangle, or flag pattern, can provide additional confirmation of a potential uptrend.
     - More easy to identify and trade compared to stocks without a clear chart pattern 
+- Stock with good story or theme
+    - A stock with a good story or theme can attract more investors and create positive sentiment around the stock, which can contribute to its price appreciation.
 - Prefer stock with atleast 1 base count
     - Stock with 1 breakout from a base make sure that you don't have to wait for a long time for next uptrend to start
 

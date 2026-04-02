@@ -1,0 +1,1 @@
+# Bull Flag Pattern

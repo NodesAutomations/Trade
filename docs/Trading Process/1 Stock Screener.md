@@ -5,7 +5,7 @@
     - We will only focus on stocks listed on the NSE due to better liquidity more regulation
     - BSE stocks can be more volatile and less liquid only consider if it's a very promising stock that is not listed on NSE
 - Market Cap
-    - Range : 500cr - 5,00,000cr
+    - Range : 500cr - 2,00,000cr
     - We are looking for mid-cap and small-cap stocks that have the potential for significant growth
     - Large-cap stocks are generally more stable but may not offer the same growth opportunities
 - Price

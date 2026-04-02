@@ -3,6 +3,6 @@ nav:
   - Home:
     - index.md
     - "*"
-  - Code: Code
   - Trading Process: Trading Process
+  - Pine Script: Pine Script
   - Momentum Investing: Momentum Investing

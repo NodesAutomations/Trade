@@ -12,6 +12,5 @@
 ## During Pre-market
 - If stock is about to breakout that you can place GTT order on live market
 
-
 ## Live Market
 - If you have placed GTT order then you can just wait for it to get executed

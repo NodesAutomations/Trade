@@ -21,4 +21,4 @@
 - So as you can see in above chart you can take entry on range breakout 
 - or you can take early entry when market is good to improve your risk reward
 
-- ![1](../assets/Concepts/LowCheat1.png)
+- ![1](../assets/Chart Patterns/LowCheat1.png)

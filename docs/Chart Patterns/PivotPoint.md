@@ -16,7 +16,7 @@
 - Just make sure that you'll get low risk entry, on range breakout
 - Stoploss should be below that day's low
 
-![1](../assets/Concepts/Pivot1.png)
+![1](../assets/Chart Patterns/Pivot1.png)
 
 ### Resources
 - [Alternative Entry Techniques](https://academy.traderlion.com/p/alternative-entry-tactics?utm_source=TLA&utm_medium=newsletter&utm_campaign=3-alternative-entry-techniques-to-improve-your-win-rate-reduce-getting-shaken-out-build-long-term-profitability)

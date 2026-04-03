@@ -13,5 +13,5 @@
 - If you have really large breakout after earning then sell at 2*ADR or close to any resistance zone like ATH line or previous swing high
 
 ### Chart Samples
-- ![EarningBreakout1](../assets/Concepts/EarningBreakout1.png)
-- ![EarningBreakout2](../assets/Concepts/EarningBreakout2.png)
+- ![EarningBreakout1](../assets/Chart Patterns/EarningBreakout1.png)
+- ![EarningBreakout2](../assets/Chart Patterns/EarningBreakout2.png)

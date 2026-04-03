@@ -7,7 +7,7 @@
 
 > If i want to explain this in simple terms, it represent balance between buyer and sellers for that perticular day, so any movement above that bar will consider as bullish movement.
 
-![1](../assets/Concepts/InsideBar1.png)
+![1](../assets/Chart Patterns/InsideBar1.png)
 
 ### When to buy?
 - Prefer Range contraction with atleast 4-5 candles
@@ -19,7 +19,7 @@
 
 > Note : Don't use inside bar as setup, use it in combination with other setups to take early entry or building positions or pyramid.
 
-![2](../assets/Concepts/InsideBar2.png)
+![2](../assets/Chart Patterns/InsideBar2.png)
 
 ### Reference
 - [Youtube: SIMPLE INSIDE BAR STRATEGY](https://www.youtube.com/watch?v=ZYt4d2tO9RE)
@@ -31,4 +31,4 @@
 - it's above 10 day but very close to ma
 - Just broke out of super trend
 - Good volume contraction
-![3](../assets/Concepts/InsideBar3.png)
+![3](../assets/Chart Patterns/InsideBar3.png)

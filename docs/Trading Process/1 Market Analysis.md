@@ -9,6 +9,9 @@
 - We should also look for signs of strength in the indices, such as higher highs and higher lows, to confirm that the market is in a bullish phase.
 
 ## Market Breadth
+- Market breadth must be above 50% for 10/21 Day at start of uptrend
+- All 10/21/50 day breadth must be above 80% for healthy market conditions.
 
 ## Net new Highs vs Lows
+- Must be positive for last 3-4 days to confirm that the market is in a strong uptrend.
 

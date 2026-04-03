@@ -5,6 +5,7 @@
 - I have developed two method for Stock Screening
     - Trading view screener good for live scans
     - Excel screener good for daily or weekly scans 
+- Run Screener everyday to figure out new breakout or to catch good looking setups early
 
 ## Selection Criteria for Stock Screening
 - Exchange

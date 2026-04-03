@@ -14,6 +14,7 @@
 - Stock Should belong to trending sector
     - Prioritize stocks that belong to sectors that are currently trending in the market.
     - Trending sectors are more likely to experience strong price movements and can provide better trading opportunities. 
+    - Average looking stock from trending sector is better than stock with good technicals from downtrending sector
 - Volume contraction with good volume on breakout day
     - Volume contraction indicates that the stock is consolidating and building up energy for a potential breakout. 
     - A breakout with good volume confirms that there is strong buying interest and increases the likelihood of a sustained uptrend.
@@ -33,11 +34,23 @@
     - Stock with 1 breakout from a base make sure that you don't have to wait for a long time for next uptrend to start
 - Good Relative Strength
     - A stock with good relative strength is outperforming the overall market and can be a strong candidate for trading.
+    - Compare stock with MIDSmall400 index to calculate relative strength
+    - Relative strength chart must be in short term uptrend
+    - Not required but if relative strength is breaking out of downtrend then it's very positive sign
 - ADR Should be in range of 3-5% or more
     - A stock with an ADR of 3-5% or more indicates that it has sufficient volatility to provide good trading opportunities. 
+- Fundamenetal Checks on market smith
+    - Price strength rating > 70
+    - Group rank < 50, but prefered <30
+    - Stock Quartry earning growth should me more than 20%
+    - Survellance check should be greed, ignore asm list warning
+- Fundamentals on screener for related stocks
+    - Check sector and industy in peer comparison
+    - If possible find out related stock with similar chart patterns
+    - you should be able to figure out if entire group is breakign out
 
 ## Negative Criteria (Avoid at all costs)
-- Avoid stock with 5% circuit limit
+- Avoid stock with 2-5% circuit limit
     - Stocks with a 5% circuit limit can be highly volatile and risky also very low chance of significant price movement in a single day which can limit our ability to capitalize on short-term opportunities
     - Additioinnally, stocks with a 5% circuit limit may be more susceptible to manipulation and we don't want to get caught in a situation where we can't sell our shares due to a circuit limit being hit
 - Avoid stocks with low liquidity
@@ -46,6 +59,8 @@
     - FNO stocks can be more volatile and risky due to the presence of derivatives trading, which can amplify price movements and increase the potential for losses. 
 - Avoid stocks with bad price action
     - Stock not following the expected price pattern or showing signs of weakness can be a red flag 
+- Avoid stock which is close to earning date (3-5 day)
+    - Earnings announcements can lead to increased volatility and unpredictable price movements, which can make it difficult to manage risk effectively. 
 
 ## Optional Negative Criteria (Should Avoid if possible)
 - Avoid stock with high base count > 5
@@ -53,3 +68,8 @@
     - Low chances of large move
 - Bad Financials
     - Stock with Bad EPS or bad revenue growth 
+
+## Additional Tips from personal Experience
+- You don't have to keep buying new stocks for each setup, normally after correction stock that broke out, it keep making smaller base and keep moving up. So keep eye on missed breakout too. You will get multiple swing trading opportunity in uptrending stocks. 
+- Trading same stock is simpler than buying new stocks every week because you'll be mroe aware about that perticular stock, it's earnings, price action.
+- Set right expectations. Understand different between large base ath breakout and pivot point breakout. with large base breakout you can expect 20-30% move before consolidation and for pivot breakout(flag,pennant) expect only 15-20% upmove. 

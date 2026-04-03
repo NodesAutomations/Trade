@@ -7,9 +7,11 @@
 
 ```mermaid
 graph TD
-    A[Find stock] --> B[Find entry point]
-    B --> C[Find exit point]
-    C --> D[Position Sizing]
-    D --> E[Risk Management]
-    E --> F[Execution]
+    Start --> MH{Market Health}
+    MH --Bad--> StayOnSideLine[Stay On Sidelines]
+    MH --Good--> StockScreener[Run Stock Screener]
+    StockScreener --> StockSelection[Stock Selection]
+    StockSelection--> ExecuteTrade{Execute Trade}
+    ExecuteTrade --Trades are working--> PositionSizing[Go All In]
+    ExecuteTrade --Trades not working--> ReduceExposure[Reduce Exposure]
 ```

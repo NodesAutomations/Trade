@@ -33,9 +33,29 @@
     - Pine Scripts
     - New Setups and concepts
 
+- [Manas](https://x.com/iManasArora)
+    - Positional Trader
+    - Financial Influencer 
+    - Have seperate youtube channel
+
+- [Starlight](https://x.com/Starlight_T1)
+    - Swing Trader
+    - To learn new setups and ideas
+    - post charts and his trades frequently over twitter
+
+- [Ganesh](https://x.com/EquityCraze)
+    - Expert for pine script
+    - Pine script developer for indian market
+    - Works with Nitin to develop new script
+
 - [Pradeep Bonde](https://x.com/PradeepBonde)
     - Stock market guru
     - Learning new concepts and strategies
+
+- For General Trading Knowledge
+    - TraderLion
+    - Mark Minvervini
+    - Nick Schmidt
 
 ## :material-web: Websites
 Work in Progress

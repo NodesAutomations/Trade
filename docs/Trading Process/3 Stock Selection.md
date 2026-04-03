@@ -31,9 +31,10 @@
     - A stock with a good story or theme can attract more investors and create positive sentiment around the stock, which can contribute to its price appreciation.
 - Prefer stock with atleast 1 base count
     - Stock with 1 breakout from a base make sure that you don't have to wait for a long time for next uptrend to start
+- Good Relative Strength
+    - A stock with good relative strength is outperforming the overall market and can be a strong candidate for trading.
 - ADR Should be in range of 3-5% or more
     - A stock with an ADR of 3-5% or more indicates that it has sufficient volatility to provide good trading opportunities. 
- 
 
 ## Negative Criteria (Avoid at all costs)
 - Avoid stock with 5% circuit limit
@@ -43,8 +44,12 @@
     - Need more Details here
 - Avoid FNO stocks
     - FNO stocks can be more volatile and risky due to the presence of derivatives trading, which can amplify price movements and increase the potential for losses. 
+- Avoid stocks with bad price action
+    - Stock not following the expected price pattern or showing signs of weakness can be a red flag 
 
 ## Optional Negative Criteria (Should Avoid if possible)
 - Avoid stock with high base count > 5
     - Stock with a high base count can be more volatile
     - Low chances of large move
+- Bad Financials
+    - Stock with Bad EPS or bad revenue growth 

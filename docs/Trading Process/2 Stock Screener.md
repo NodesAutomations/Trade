@@ -1,5 +1,11 @@
 # Stock Screening
 
+## Overview
+- Stock screening is the process of filtering stocks based on specific criteria to identify potential investment opportunities. It helps investors narrow down the vast universe of stocks to a manageable list that meets their investment goals and risk tolerance.
+- I have developed two method for Stock Screening
+    - Trading view screener good for live scans
+    - Excel screener good for daily or weekly scans 
+
 ## Selection Criteria for Stock Screening
 - Exchange
     - We will only focus on stocks listed on the NSE due to better liquidity more regulation
@@ -11,7 +17,7 @@
 - Price
     - Range : 30 - 7000
     - We want to avoid penny stocks (below 30) which can be highly volatile and risky
-    - We also want to avoid very high-priced stocks (above 7000) that we can't buy in significant quantities with our budget
+    - We also want to avoid very high-priced stocks (above 7000) that we can't buy in significant quantities with our budget plus avoid liquidity issues that can arise with very high-priced stocks
 - EMA 21
     - Only consider stocks that are trading above their 21-day Exponential Moving Average (EMA) to ensure we are looking at stocks in an uptrend 
 - All time High

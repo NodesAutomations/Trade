@@ -1,4 +1,4 @@
-# Trading View Screeners
+# Screeners
 
 ## ATH20
 - Main problem with trading view ath screener is that there's not way to find stocks which are within 10-15% below ATH

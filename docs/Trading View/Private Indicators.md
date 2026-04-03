@@ -1,4 +1,4 @@
-# Trading View Private Indicators
+# Private Indicators
 
 ## Ankur Patel AI1
 - https://in.tradingview.com/script/kQfskwhf-AP-AI1/

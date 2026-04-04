@@ -1,10 +1,10 @@
 # Site settings
 site_name: Trade
-site_url: https://nodesautomations.com/Trade/
+site_url: https://github.com/vivekkpatel/Trade/
 
 # Repository Details for "Edit on GitHub" links
 repo_name: Trade
-repo_url: https://github.com/NodesAutomations/Trade
+repo_url: https://github.com/vivekkpatel/Trade
 edit_uri: edit/main/docs/
  
 theme:

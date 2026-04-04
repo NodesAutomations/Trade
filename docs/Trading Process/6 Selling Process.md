@@ -50,6 +50,10 @@
 - you can also book 50% if you're holding very large position to reduce risk. 
 - For regular position don't sell half, because it will increase number of stocks in your portfolio
 
+### When there's change in circuit limit
+- When there's change in circuit limit and stock is extended then it's good idea to sell and book profit
+- Change in circuit limit mostly put limit on stock upside and people will move to other stock with more upside potential
+
 ### When Earning Results is due
 - Never hold a stock through earnings if you don't have enough cushion to protect against potential downside.
 - When Market is strong

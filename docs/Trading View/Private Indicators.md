@@ -1,5 +1,8 @@
 # Private Indicators
 
+## Circuit Limit Indicator
+- [NSE EQUITY PRICE BAND by ILuvMarkets](https://in.tradingview.com/script/fImrapqb-NSE-EQUITY-PRICE-BAND-v1-0-ILuvMarkets/)
+
 ## Ankur Patel AI1
 - https://in.tradingview.com/script/kQfskwhf-AP-AI1/
 - This indicator is a tool designed with the aim of making scanning process easier for contraction patterns. 

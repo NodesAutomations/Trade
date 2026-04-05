@@ -1,6 +1,6 @@
 //@version=5
 indicator("Dashboard",overlay= true)
-import vkpunique/PineHelper/14 as ph
+import vkpunique/PineHelper/15 as ph
 
 //General variables
 [dailyOpen,dailyHigh,dailyLow,dailyClose] = request.security(syminfo.tickerid, "1D", [open,high,low,close])

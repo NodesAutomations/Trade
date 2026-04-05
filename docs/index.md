@@ -20,6 +20,7 @@
 - [Screener Upcoming Results](https://www.screener.in/upcoming-results/?sme=nse)
 
 ### IPO
+- [Chittorgarh Mainboard IPOs](https://www.chittorgarh.com/report/ipo-in-india-list-main-board-sme/82/mainboard/)
 - [Live IPO GMP](https://www.investorgain.com/report/live-ipo-gmp/331/)
 
 ## Resources

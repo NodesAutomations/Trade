@@ -10,6 +10,7 @@
 - [ChartInk Dashboard](https://chartink.com/dashboard/133280)
 - [MarketSmith India](https://marketsmithindia.com/)
 - [Screener Dashboard](https://www.screener.in/)
+- [Ticker Tape](https://www.tickertape.in/)
 - [Tijori Finance Market Monitor](https://www.tijorifinance.com/markets)
 
 ### Market Data & Events

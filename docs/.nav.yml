@@ -3,11 +3,7 @@ nav:
   - Home:
     - index.md
     - "*"
-  - Trading Process: 
-    - index.md
-    - *
-    - Personal Indicators:
-      - *
+  - Trading Process: Trading Process
   - Concepts: Concepts
   - Chart Patterns: Chart Patterns
   - Pine Script: Pine Script

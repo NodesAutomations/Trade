@@ -1,57 +1,10 @@
-# Common Formating Rules
+# Calculator
 
-### Colors Classification
-| Color | Meaning |
-| --- | --- |
-| Green | Perfect Range |
-| No Color | Normal Range |
-| Orange | Below Average but acceptable Range |
-| Red | Warning Bad Value |
+## Overview
+- I use this indicator to calculate the gain and risk of current stock during active trade.
+- It also gives me some helper values like stoploss value and quantity to buy based on position size defined in settings.
 
-
-# Main Indicator
-
-### What does it contain
-- Moving Averages 10/21/50/100/200
-- All time high line
-- Bull snort Candle marker
-- Inside bar candle marker
-- Dashboard to help with stock screening it contain
-    - % distance from Moving averate
-    - % distance form all time high
-    - ADR for daily timeframe
-
-
-### Ema formatting
-
-| Range % | Color | Detail |
-| --- | --- | --- |
-| [3,) | no color | stock is strongly trading above moving average |
-| [0-3) | Green | Stock is close to moving average |
-| [-1,0) | Orange | Stock is below moving average but within |
-| [,-1) | Red | Stock is trading below moving average |
-
-### ATH formatting
-
-| Range % | Color | Detail |
-| --- | --- | --- |
-| [-5,0]% | Green | Stock is close to All time high |
-| [-15,-5) | no color | stock is withing acceptable range of ATH |
-| [-20,-15) | Orange | Stock is on extreme edge of ATH |
-| [,-20) | Red | Stock is trading far below ATH |
-
-### ADR formatting
-
-| Range % | Color | Detail |
-| --- | --- | --- |
-| [5,] | Green | Fast moving stock |
-| [3.5,5) | no color | Regular stock |
-| [2.5,-3.5) | Orange | Passable Range |
-| [,-2.5) | Red | Slow moving stock |
-
-# Helper
-
-### What does it contain
+## Features
 - Gain and Risk of Current stock
 - Trigger % if stock is about to breakout and part of my watchlist
 - Current Day stats
@@ -65,7 +18,8 @@
     - Stoploss type
     - Quantiy for position size define in settings
 
-### Relative volume
+
+## Relative volume Classification
 
 | Range % | Color | Detail |
 | --- | --- | --- |
@@ -74,7 +28,7 @@
 | [30,50) | Orange | Acceptable volume |
 | [0,30) | Red | Not enough volume |
 
-### Daily Closing range
+## Daily Closing range Classification
 
 | Range % | Color | Detail |
 | --- | --- | --- |
@@ -83,7 +37,7 @@
 | [30,50) | Orange | Acceptable closing |
 | [0,30) | Red | Weak closing |
 
-### Stoploss
+## Stoploss Classification
 
 | Range % | Color | Detail |
 | --- | --- | --- |
@@ -91,8 +45,8 @@
 | [1,2.5) | No Color | Normal Risk |
 | [2.5,4) | Orange | Acceptable Risk |
 | [4,0) | Red | High Risk |
-
-### Gain
+ 
+## Gain Classification
 
 | Profit % | Color | Detail |
 | --- | --- | --- |
@@ -101,7 +55,7 @@
 | [0,8) | Orange | Not much Profit |
 | [,0) | Red | Loss |
 
-### Open
+## Open Classification
 
 | Profit % | Color | Detail |
 | --- | --- | --- |
@@ -110,7 +64,7 @@
 | [-2,-0.25) | Orange | Weak Opening |
 | [,-2) | Red | Gap Down |
 
-### Gap
+## Gap Classification
 
 | Profit % | Color | Detail |
 | --- | --- | --- |

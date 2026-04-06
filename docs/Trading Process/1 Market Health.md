@@ -1,4 +1,4 @@
-# Market Analysis
+# Market Health
 
 ## Overview
 - Before we start trading, it's crucial to analyze the overall market conditions to check if the market is in a favorable state for trading.

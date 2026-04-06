@@ -1,4 +1,4 @@
-# PineHelper 
+# PineHelper Indicator
 
 ## Overview
 - It's my private helper library for Pine Script

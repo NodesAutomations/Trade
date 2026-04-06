@@ -14,3 +14,10 @@
 - Green = Best stock in current bull run
 - Yellow = IPO Stocks
 - Red = Stock with i want to avoid
+
+## Indicators Setup
+- Chart Visual
+- Dashboard 
+- Volume
+- Calculator (Only Needed during trading session)
+- NSE Equity Price Band (Only Needed during Screening Session)

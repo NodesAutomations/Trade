@@ -21,6 +21,7 @@
 - Volume
 - Calculator (Only Needed during trading session)
 - NSE Equity Price Band (Only Needed during Screening Session)
+- Simple Volume with Pocket Pivot (Only Needed on Ready to buy stock)
 
 ## ATH20 Screener
 - Main problem with trading view ath screener is that there's not way to find stocks which are within 10-15% below ATH

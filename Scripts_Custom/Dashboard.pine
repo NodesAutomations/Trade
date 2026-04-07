@@ -2,6 +2,9 @@
 indicator("Dashboard",overlay= true)
 import vkpunique/PineHelper/17 as ph
 import vkpunique/SectorDataHelper1/1 as s1
+import vkpunique/SectorDataHelper2/1 as s2
+import vkpunique/SectorDataHelper3/1 as s3
+import vkpunique/SectorDataHelper4/1 as s4
 
 //General variables
 [dailyOpen,dailyHigh,dailyLow,dailyClose] = request.security(syminfo.tickerid, "1D", [open,high,low,close])
@@ -42,11 +45,14 @@ bool isFnoStock= ph.IsFNOStock(syminfo.ticker)
 
 //Screener Sector Data
 var s1Map = s1.GetScreenerSectorData(syminfo.ticker)
+var s2Map = s1Map.S1==0? s2.GetScreenerSectorData(syminfo.ticker):s1Map
+var s3Map = s2Map.S1==0? s3.GetScreenerSectorData(syminfo.ticker):s2Map
+var s4Map = s3Map.S1==0? s4.GetScreenerSectorData(syminfo.ticker):s3Map
 
-int sector1 = s1Map.S1
-int sector2 = s1Map.S2
-int sector3 = s1Map.S3
-int sector4 = s1Map.S4
+int sector1 = s4Map.S1
+int sector2 = s4Map.S2
+int sector3 = s4Map.S3
+int sector4 = s4Map.S4
 
 //Industry Trend
 var industryData = input.text_area(defval = "", title = "Industry Trend")
@@ -87,14 +93,17 @@ if barstate.islast
 
     ph.AddResult(data,"EMA",IsTrendingEMA?"Pass":"Fail",ph.GetBGColor(IsTrendingEMA))
     ph.AddResult(data,"EMA 10",ph.ToPercentage(ema10_Percentate),ph.GetBGColor(ema10_Percentate,-0.01,0,0.03,0.1,0.15))
-    ph.AddResult(data,"EMA 21",ph.ToPercentage(ema21_Percentate),ph.GetBGColor(ema10_Percentate,-0.01,0,0.03,0.1,0.15))
-    ph.AddResult(data,"EMA 50",ph.ToPercentage(ema50_Percentate),ph.GetBGColor(ema10_Percentate,-0.01,0,0.03,0.1,0.15))
+    ph.AddResult(data,"EMA 21",ph.ToPercentage(ema21_Percentate),ph.GetBGColor(ema21_Percentate,-0.01,0,0.03,0.1,0.15))
+    ph.AddResult(data,"EMA 50",ph.ToPercentage(ema50_Percentate),ph.GetBGColor(ema50_Percentate,-0.01,0,0.03,0.1,0.15))
     ph.AddResult(data,"ATH",ph.ToPercentage(ath_Percentage),ph.GetBGColor(ath_Percentage,-0.2,-0.15,-0.1,-0.01,-0.005))
     ph.AddResult(data,"ADR",ph.ToPercentage(adr_Percentage),ph.GetBGColorUp(adr_Percentage,0,0.025,0.05))
     ph.AddResult(data)
 
     ph.AddResult(data,"FNO",isFnoStock?"Yes":"No",ph.GetBGColor3(isFnoStock?-1:0))
-    ph.AddResult(data,"Industry",ph.GetS4(sector4),color(na))
+    ph.AddResult(data,"S1",ph.GetS1(sector1),color(na))
+    ph.AddResult(data,"S2",ph.GetS2(sector2),color(na))
+    ph.AddResult(data,"S3",ph.GetS3(sector3),color(na))
+    ph.AddResult(data,"S4",ph.GetS4(sector4),color(na))
     ph.AddResult(data)
     
     ph.AddResult(data,"Gain",buyPrice>0?ph.ToPercentage(gain_Percentage):"-",ph.GetBGColorUp(gain_Percentage,-0.03,0,0.06))

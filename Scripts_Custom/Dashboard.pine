@@ -1,6 +1,7 @@
 //@version=5
 indicator("Dashboard",overlay= true)
-import vkpunique/PineHelper/16 as ph
+import vkpunique/PineHelper/17 as ph
+import vkpunique/SectorDataHelper1/1 as s1
 
 //General variables
 [dailyOpen,dailyHigh,dailyLow,dailyClose] = request.security(syminfo.tickerid, "1D", [open,high,low,close])
@@ -40,13 +41,12 @@ adr_Percentage = (request.security(syminfo.tickerid, "1D",ta.sma(high/low, 20)) 
 bool isFnoStock= ph.IsFNOStock(syminfo.ticker)
 
 //Screener Sector Data
-var sectorData = input.text_area(defval = "", title = "Screener Sector Data")
+var s1Map = s1.GetScreenerSectorData(syminfo.ticker)
 
-var sectorMap = ph.GetMapDataScreenerSector(sectorData)
-int sector1 = sectorMap.contains(syminfo.ticker)?sectorMap.get(syminfo.ticker).S1:0
-int sector2 = sectorMap.contains(syminfo.ticker)?sectorMap.get(syminfo.ticker).S2:0
-int sector3 = sectorMap.contains(syminfo.ticker)?sectorMap.get(syminfo.ticker).S3:0
-int sector4 = sectorMap.contains(syminfo.ticker)?sectorMap.get(syminfo.ticker).S4:0
+int sector1 = s1Map.S1
+int sector2 = s1Map.S2
+int sector3 = s1Map.S3
+int sector4 = s1Map.S4
 
 //Industry Trend
 var industryData = input.text_area(defval = "", title = "Industry Trend")

@@ -6,7 +6,7 @@ export type Trade
     float BuyPrice
     string OrderDate
 
-export type ScreenerSector
+export type Sector
     int S1
     int S2
     int S3
@@ -218,8 +218,8 @@ export method GetMapDataTrade(string data)=>
                 tradeMap.put(ticker,Trade.new(price,orderDate))
     tradeMap
 
-export method GetMapDataScreenerSector(string data) =>
-    var screenerMap = map.new<string, ScreenerSector>()
+export method GetMapDataSector(string data) =>
+    var screenerMap = map.new<string, Sector>()
     if data !=""
         lines = str.split(data, "\n")
         for i = 0 to array.size(lines) - 1
@@ -231,7 +231,7 @@ export method GetMapDataScreenerSector(string data) =>
                 int s2 = int(str.tonumber(parts.get(2)))
                 int s3 = int(str.tonumber(parts.get(3)))
                 int s4 = int(str.tonumber(parts.get(4)))
-                screenerMap.put(ticker,ScreenerSector.new(s1,s2,s3,s4))
+                screenerMap.put(ticker,Sector.new(s1,s2,s3,s4))
     screenerMap
 
 export method IsFNOStock(string symbol)=>

@@ -8,6 +8,7 @@
 - Run Screener everyday to figure out new breakout or to catch good looking setups early
 
 ## Selection Criteria for Stock Screening
+- You 
 - Exchange
     - We will only focus on stocks listed on the NSE due to better liquidity more regulation
     - BSE stocks can be more volatile and less liquid only consider if it's a very promising stock that is not listed on NSE
@@ -26,3 +27,9 @@
 - Price change %
     - Only consider stock with a price change of -2% or more today to identify stocks that may be experiencing a temporary pullback and could be good buying opportunities
     - You can remove this criteria if you're doing weekly screening as it may not be relevant for longer-term analysis
+
+## IPO Screener
+- [Vivek IPO Screener](https://chartink.com/screener/vivek-ipo-scanner)
+- Market Cap > 300cr
+- Price > 30
+- Stock must be listed 12 month ago or less

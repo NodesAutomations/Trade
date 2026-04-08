@@ -35,3 +35,10 @@
     - Sector filter  
     - Industry filter
     - Gap Up %
+
+## IPO Screener
+- IPO scanner is not available on trading view so i have to use chartink screener for that and import the result to trading view using watchlist
+- [Vivek IPO Scanner](https://chartink.com/screener/vivek-ipo-scanner)
+```
+( {cash} (  daily close >  30 and  market cap >=  300 and ( {cash} not (  12 months ago close >  0 ) ) ) ) 
+```

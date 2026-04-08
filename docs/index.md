@@ -22,6 +22,7 @@
 
 ### IPO
 - [Chittorgarh Mainboard IPOs](https://www.chittorgarh.com/report/ipo-in-india-list-main-board-sme/82/mainboard/)
+- [Vivek IPO Scanner](https://chartink.com/screener/vivek-ipo-scanner)
 - [Live IPO GMP](https://www.investorgain.com/report/live-ipo-gmp/331/)
 
 ## Resources

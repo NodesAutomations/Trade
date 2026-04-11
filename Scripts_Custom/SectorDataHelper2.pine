@@ -1,6 +1,6 @@
-//@version=5
+//@version=6
 library("SectorDataHelper2", overlay=true)
-import vkpunique/PineHelper/17 as ph
+import vkpunique/PineHelper/18 as ph
 
 export method GetScreenerSectorData(string symbol)=>
     var sMap = map.new<string, ph.Sector>()

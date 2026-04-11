@@ -1,10 +1,10 @@
-//@version=5
+//@version=6
 indicator("Dashboard",overlay= true)
-import vkpunique/PineHelper/17 as ph
-import vkpunique/SectorDataHelper1/1 as s1
-import vkpunique/SectorDataHelper2/1 as s2
-import vkpunique/SectorDataHelper3/1 as s3
-import vkpunique/SectorDataHelper4/1 as s4
+import vkpunique/PineHelper/18 as ph
+import vkpunique/SectorDataHelper1/2 as s1
+import vkpunique/SectorDataHelper2/2 as s2
+import vkpunique/SectorDataHelper3/2 as s3
+import vkpunique/SectorDataHelper4/2 as s4
 
 //General variables
 [dailyOpen,dailyHigh,dailyLow,dailyClose] = request.security(syminfo.tickerid, "1D", [open,high,low,close])
@@ -82,7 +82,7 @@ var triggerData = input.text_area(defval = "", title = "GTT")
 var triggerMap= ph.GetMapDataFloat(triggerData)
 float trigger=triggerMap.contains(syminfo.ticker)?triggerMap.get(syminfo.ticker):0
 trigger_Percentage=trigger>0? ph.Percentage(close,trigger):0
-GetTriggerBGColor(x)=>x>=0.02?color.red:x>=-0.02?color.green:color(na)
+GetTriggerBGColor(x)=>x>=0.02?color.red:x>=-0.02?color.green:na
 
 //// Table Generation
 var data= array.new<ph.Result>()
@@ -100,15 +100,15 @@ if barstate.islast
     ph.AddResult(data)
 
     ph.AddResult(data,"FNO",isFnoStock?"Yes":"No",ph.GetBGColor3(isFnoStock?-1:0))
-    ph.AddResult(data,"S1",ph.GetS1(sector1),color(na))
-    ph.AddResult(data,"S2",ph.GetS2(sector2),color(na))
-    ph.AddResult(data,"S3",ph.GetS3(sector3),color(na))
-    ph.AddResult(data,"S4",ph.GetS4(sector4),color(na))
+    ph.AddResult(data,"S1",ph.GetS1(sector1),na)
+    ph.AddResult(data,"S2",ph.GetS2(sector2),na)
+    ph.AddResult(data,"S3",ph.GetS3(sector3),na)
+    ph.AddResult(data,"S4",ph.GetS4(sector4),na)
     ph.AddResult(data)
     
     ph.AddResult(data,"Gain",buyPrice>0?ph.ToPercentage(gain_Percentage):"-",ph.GetBGColorUp(gain_Percentage,-0.03,0,0.06))
-    ph.AddResult(data, "BE",buyPrice>0?ph.ToPercentage(breakEvenPercentage):"-" ,color(na))
-    ph.AddResult(data,"NOD",buyPrice>0?str.tostring(NOD):"-",color(na))
+    ph.AddResult(data, "BE",buyPrice>0?ph.ToPercentage(breakEvenPercentage):"-" ,na)
+    ph.AddResult(data,"NOD",buyPrice>0?str.tostring(NOD):"-",na)
     ph.AddResult(data,"GTT",trigger>0?ph.ToPercentage(trigger_Percentage):"-",ph.GetBGColorDown(trigger_Percentage,0.02,0,-0.02))
 
     ph.GenerateTable(data,"top_center",ph.TableOrientation.Horizontal)

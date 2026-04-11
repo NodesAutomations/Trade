@@ -1,4 +1,4 @@
-//@version=5
+//@version=6
 indicator("RS Pane")
 length = 123//Look back to last 123 days
 base = 5//Currently i don't know what this value mean but 5 is deafult

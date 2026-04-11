@@ -1,4 +1,4 @@
-//@version=5
+//@version=6
 library("PineHelper", overlay=true)
 
 //Custom Types
@@ -59,22 +59,22 @@ export GetBGColor(int value) =>
 	switch value
 		1=>color.green
 		0=>color.red
-		=>color(na)
+		=>na
 
 // @function Get Background Color Using 0,1,-1 input
 // @returns Color Type
 export GetBGColor3(int value) =>
 	switch value
 		1=>color.green
-		0=>color(na)
+		0=>na
 		-1=>color.red
-		=>color(na)
+		=>na
 
 export method GetBGColor(bool value) =>
 	switch value
 		true=>color.green
 		false=>color.red
-		=>color(na)
+		=>na
 
 
 export method GetBGColorUp(float x,float badValue,float okValue,float normalValue)=>
@@ -83,7 +83,7 @@ export method GetBGColorUp(float x,float badValue,float okValue,float normalValu
     else if x<okValue
         color.orange    
 	else if x<normalValue
-        color(na)
+        na
     else
         color.green
 
@@ -93,7 +93,7 @@ export method GetBGColorDown(float x,float badValue,float okValue,float normalVa
     else if x>okValue
         color.orange    
 	else if x>normalValue
-        color(na)
+        na
     else
         color.green
 
@@ -105,7 +105,7 @@ export method GetBGColor(float x,float lowEnd,float lowEdge,float perfect,float 
     else if x<perfect
         color.green
     else if x<normal
-        color(na)
+        na
     else if x<highEdge
         color.orange
     else
@@ -134,16 +134,16 @@ export method HorizontalCell(table tbl, int rowId,string cellTitle,string cellTe
     table.cell(tbl,1,rowId,cellText,text_color = color.white,bgcolor = backgroundcolor)
 
 export method HorizontalCellBlank(table tbl, int rowId)=>
-    table.cell(tbl,0,rowId,"",text_color = color.white,bgcolor = color(na))
-    table.cell(tbl,1,rowId,"",text_color = color.white,bgcolor = color(na))
+    table.cell(tbl,0,rowId,"",text_color = color.white,bgcolor = na)
+    table.cell(tbl,1,rowId,"",text_color = color.white,bgcolor = na)
 
 export method VerticleCell(table tbl, int colId,string cellTitle,string cellText,color backgroundcolor)=>
     table.cell(tbl,colId,0,cellTitle,text_color = color.white,bgcolor = color.black)
     table.cell(tbl,colId,1,cellText,text_color = color.white,bgcolor = backgroundcolor)
 
 export method VerticleCellBlank(table tbl, int colId)=>
-    table.cell(tbl,colId,0,"",text_color = color.white,bgcolor = color(na))
-    table.cell(tbl,colId,1,"",text_color = color.white,bgcolor = color(na))
+    table.cell(tbl,colId,0,"",text_color = color.white,bgcolor = na)
+    table.cell(tbl,colId,1,"",text_color = color.white,bgcolor = na)
 
 export method VerticleCell2(table tbl,int rowId, int colId,string cellTitle,string cellText,color backgroundcolor)=>
     table.cell(tbl,colId,rowId,cellTitle,text_color = color.white,bgcolor = color.black)
@@ -152,7 +152,7 @@ export method VerticleCell2(table tbl,int rowId, int colId,string cellTitle,stri
 export method VerticleCell3(table tbl,int rowId, int colId,string cellTitle,string cellText,color backgroundcolor)=>
     table.cell(tbl,colId,rowId,cellTitle,text_color = color.white,bgcolor = color.black)
     table.cell(tbl,colId,rowId+1,cellText,text_color = color.white,bgcolor = backgroundcolor)
-    table.cell(tbl,colId,rowId+2,"",text_color = color.white,bgcolor = color(na))
+    table.cell(tbl,colId,rowId+2,"",text_color = color.white,bgcolor = na)
 
 
 export method GenerateTable(Result[] data,string position, TableOrientation orientation)=>

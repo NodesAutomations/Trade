@@ -1,6 +1,6 @@
-//@version=5 
+//@version=6
 indicator(title="Chart Visuals", overlay=true)
-import vkpunique/PineHelper/7 as ph
+import vkpunique/PineHelper/18 as ph
 
 //Groups
 string settingsGrup = "═══════════════ Configuration ═══════════════"

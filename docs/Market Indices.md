@@ -40,3 +40,5 @@
     - representing the infrastructure sector which includes companies belonging to Telecom, Power, Port, Air, Roads, Railways, shipping and other Utility Services providers.
 - [**Nifty Energy**](https://www.niftyindices.com/indices/equity/thematic-indices/nifty-energy)
     - Petroleum, Gas and Power
+- [**Nifty IPO**](https://www.niftyindices.com/indices/equity/thematic-indices/nifty-ipo)
+  - represent preformance of Last 100 IPOs listed on NSE.

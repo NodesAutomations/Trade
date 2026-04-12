@@ -44,10 +44,11 @@ adr_Percentage = (request.security(syminfo.tickerid, "1D",ta.sma(high/low, 20)) 
 bool isFnoStock= ph.IsFNOStock(syminfo.ticker)
 
 //Screener Sector Data
-var s1Map = s1.GetScreenerSectorData(syminfo.ticker)
-var s2Map = s1Map.S1==0? s2.GetScreenerSectorData(syminfo.ticker):s1Map
-var s3Map = s2Map.S1==0? s3.GetScreenerSectorData(syminfo.ticker):s2Map
-var s4Map = s3Map.S1==0? s4.GetScreenerSectorData(syminfo.ticker):s3Map
+var tickerSymbol = str.replace(syminfo.ticker, "_", "-")
+var s1Map = s1.GetScreenerSectorData(tickerSymbol)
+var s2Map = s1Map.S1==0? s2.GetScreenerSectorData(tickerSymbol):s1Map
+var s3Map = s2Map.S1==0? s3.GetScreenerSectorData(tickerSymbol):s2Map
+var s4Map = s3Map.S1==0? s4.GetScreenerSectorData(tickerSymbol):s3Map
 
 int sector1 = s4Map.S1
 int sector2 = s4Map.S2
